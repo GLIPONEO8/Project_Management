@@ -122,3 +122,291 @@ document.addEventListener('DOMContentLoaded', () => {
         checkPasswordStrength(e.target.value);
     });
 });
+
+// Store items in localStorage
+let inventory = JSON.parse(localStorage.getItem('refrigeratorInventory')) || {
+    freezer: [],
+    chiller: [],
+    mid: []
+};
+
+// DOM Elements
+const navButtons = document.querySelectorAll('.nav-btn');
+const categorySections = document.querySelectorAll('.category-section');
+const addItemForm = document.getElementById('addItemForm');
+const searchInput = document.getElementById('searchInput');
+const sortBySelect = document.getElementById('sortBy');
+const filterExpirySelect = document.getElementById('filterExpiry');
+const imagePreview = document.getElementById('imagePreview');
+const modal = document.getElementById('itemModal');
+const closeModal = document.querySelector('.close-modal');
+
+// Event Listeners
+searchInput.addEventListener('input', updateDisplay);
+sortBySelect.addEventListener('change', updateDisplay);
+filterExpirySelect.addEventListener('change', updateDisplay);
+document.getElementById('itemImage').addEventListener('change', handleImagePreview);
+closeModal.addEventListener('click', () => modal.style.display = 'none');
+window.addEventListener('click', (e) => {
+    if (e.target === modal) modal.style.display = 'none';
+});
+
+// Navigation functionality
+navButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const category = button.dataset.category;
+        navButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        categorySections.forEach(section => {
+            section.classList.remove('active');
+            if (section.id === category) section.classList.add('active');
+        });
+        updateDisplay();
+    });
+});
+
+// Image Preview Handler
+function handleImagePreview(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        imagePreview.innerHTML = '';
+    }
+}
+
+// Add new item
+addItemForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const category = document.getElementById('itemCategory').value;
+    const name = document.getElementById('itemName').value;
+    const quantity = parseInt(document.getElementById('itemQuantity').value);
+    const minQuantity = parseInt(document.getElementById('minQuantity').value);
+    const expiryDate = document.getElementById('expiryDate').value;
+    const notes = document.getElementById('itemNotes').value;
+    const imageFile = document.getElementById('itemImage').files[0];
+    
+    if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imageData = e.target.result;
+            addItemToInventory(category, name, quantity, minQuantity, expiryDate, notes, imageData);
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        addItemToInventory(category, name, quantity, minQuantity, expiryDate, notes);
+    }
+    
+    addItemForm.reset();
+    imagePreview.innerHTML = '';
+});
+
+function addItemToInventory(category, name, quantity, minQuantity, expiryDate, notes, imageData = null) {
+    const newItem = {
+        id: Date.now(),
+        name,
+        quantity,
+        minQuantity,
+        expiryDate,
+        notes,
+        image: imageData,
+        dateAdded: new Date().toISOString()
+    };
+    
+    inventory[category].push(newItem);
+    saveInventory();
+    updateDisplay();
+    updateStats();
+}
+
+function updateDisplay() {
+    const activeCategory = document.querySelector('.nav-btn.active').dataset.category;
+    const searchTerm = searchInput.value.toLowerCase();
+    const sortBy = sortBySelect.value;
+    const expiryFilter = filterExpirySelect.value;
+    
+    let items = [...inventory[activeCategory]];
+    
+    // Apply search filter
+    items = items.filter(item => 
+        item.name.toLowerCase().includes(searchTerm) ||
+        (item.notes && item.notes.toLowerCase().includes(searchTerm))
+    );
+    
+    // Apply expiry filter
+    items = filterByExpiry(items, expiryFilter);
+    
+    // Apply sorting
+    items = sortItems(items, sortBy);
+    
+    displayItems(activeCategory, items);
+    updateStats();
+}
+
+function filterByExpiry(items, filter) {
+    const today = new Date();
+    const weekFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const monthFromNow = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
+    
+    switch(filter) {
+        case 'expired':
+            return items.filter(item => new Date(item.expiryDate) < today);
+        case 'week':
+            return items.filter(item => {
+                const expiry = new Date(item.expiryDate);
+                return expiry >= today && expiry <= weekFromNow;
+            });
+        case 'month':
+            return items.filter(item => {
+                const expiry = new Date(item.expiryDate);
+                return expiry >= today && expiry <= monthFromNow;
+            });
+        default:
+            return items;
+    }
+}
+
+function sortItems(items, sortBy) {
+    return items.sort((a, b) => {
+        switch(sortBy) {
+            case 'name':
+                return a.name.localeCompare(b.name);
+            case 'expiry':
+                return new Date(a.expiryDate) - new Date(b.expiryDate);
+            case 'dateAdded':
+                return new Date(b.dateAdded) - new Date(a.dateAdded);
+            case 'quantity':
+                return b.quantity - a.quantity;
+            default:
+                return 0;
+        }
+    });
+}
+
+function displayItems(category, items) {
+    const gridContainer = document.querySelector(`#${category} .items-grid`);
+    gridContainer.innerHTML = '';
+    
+    items.forEach(item => {
+        const itemCard = document.createElement('div');
+        itemCard.className = 'item-card';
+        
+        // Calculate expiry status
+        const expiryStatus = getExpiryStatus(item.expiryDate);
+        const quantityStatus = item.quantity <= item.minQuantity ? 'low' : 'normal';
+        
+        itemCard.innerHTML = `
+            ${item.image ? 
+                `<img src="${item.image}" alt="${item.name}" class="item-image">` : 
+                '<div class="item-image" style="background-color: #ddd;"></div>'
+            }
+            ${expiryStatus !== 'normal' ? 
+                `<span class="expiry-badge ${expiryStatus}">${expiryStatus}</span>` : ''
+            }
+            ${quantityStatus === 'low' ? 
+                `<span class="quantity-badge low">Low Stock</span>` : ''
+            }
+            <div class="item-info">
+                <h3>${item.name}</h3>
+                <p>Quantity: ${item.quantity}</p>
+                <p>Expiry: ${new Date(item.expiryDate).toLocaleDateString()}</p>
+                <button onclick="showItemDetails(${item.id}, '${category}')">Details</button>
+                <button onclick="deleteItem('${category}', ${item.id})">Delete</button>
+            </div>
+        `;
+        
+        gridContainer.appendChild(itemCard);
+    });
+}
+
+function getExpiryStatus(expiryDate) {
+    const today = new Date();
+    const expiry = new Date(expiryDate);
+    const daysUntilExpiry = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
+    
+    if (daysUntilExpiry < 0) return 'expired';
+    if (daysUntilExpiry <= 7) return 'warning';
+    return 'normal';
+}
+
+function showItemDetails(itemId, category) {
+    const item = inventory[category].find(item => item.id === itemId);
+    if (!item) return;
+    
+    const modalContent = document.getElementById('modalContent');
+    modalContent.innerHTML = `
+        <h2>${item.name}</h2>
+        ${item.image ? `<img src="${item.image}" alt="${item.name}" style="max-width: 300px;">` : ''}
+        <div class="item-details">
+            <p><strong>Category:</strong> ${category}</p>
+            <p><strong>Quantity:</strong> ${item.quantity}</p>
+            <p><strong>Minimum Quantity:</strong> ${item.minQuantity}</p>
+            <p><strong>Expiry Date:</strong> ${new Date(item.expiryDate).toLocaleDateString()}</p>
+            <p><strong>Date Added:</strong> ${new Date(item.dateAdded).toLocaleDateString()}</p>
+            ${item.notes ? `<p><strong>Notes:</strong> ${item.notes}</p>` : ''}
+        </div>
+        <div class="modal-actions">
+            <button onclick="editItem(${item.id}, '${category}')">Edit</button>
+            <button onclick="deleteItem('${category}', ${item.id}); modal.style.display='none'">Delete</button>
+        </div>
+    `;
+    
+    modal.style.display = 'block';
+}
+
+function editItem(itemId, category) {
+    // Implementation for editing items
+    // This could be expanded based on requirements
+    console.log('Edit item:', itemId, category);
+}
+
+function deleteItem(category, itemId) {
+    if (confirm('Are you sure you want to delete this item?')) {
+        inventory[category] = inventory[category].filter(item => item.id !== itemId);
+        saveInventory();
+        updateDisplay();
+    }
+}
+
+function updateStats() {
+    const today = new Date();
+    const weekFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+    
+    let totalItems = 0;
+    let expiringSoon = 0;
+    let lowStock = 0;
+    
+    Object.values(inventory).forEach(category => {
+        category.forEach(item => {
+            totalItems++;
+            
+            const expiryDate = new Date(item.expiryDate);
+            if (expiryDate <= weekFromNow && expiryDate >= today) {
+                expiringSoon++;
+            }
+            
+            if (item.quantity <= item.minQuantity) {
+                lowStock++;
+            }
+        });
+    });
+    
+    document.getElementById('totalItems').textContent = totalItems;
+    document.getElementById('expiringSoon').textContent = expiringSoon;
+    document.getElementById('lowStock').textContent = lowStock;
+}
+
+function saveInventory() {
+    localStorage.setItem('refrigeratorInventory', JSON.stringify(inventory));
+}
+
+// Initialize display and stats on page load
+document.addEventListener('DOMContentLoaded', () => {
+    updateDisplay();
+    updateStats();
+});

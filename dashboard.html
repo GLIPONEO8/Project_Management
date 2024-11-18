@@ -3,9 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Enhanced Refrigerator Inventory System</title>
+    <link rel="stylesheet" href="stylesdashboard.css">
 </head>
 <body>
-    <h1>Welcome to the Dashboard!</h1>
+    <div class="container">
+        <h1>Refrigerator Inventory System</h1>
+        
+        <!-- Navigation -->
+        <nav class="category-nav">
+            <button class="nav-btn active" data-category="freezer">Freezer</button>
+            <button class="nav-btn" data-category="chiller">Chiller</button>
+            <button class="nav-btn" data-category="mid">Mid Section</button>
+        </nav>
+
+        <!-- Search and Filter Bar -->
+        <div class="search-filter-bar">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search items...">
+            </div>
+            <div class="filter-options">
+                <select id="sortBy">
+                    <option value="name">Sort by Name</option>
+                    <option value="expiry">Sort by Expiry Date</option>
+                    <option value="dateAdded">Sort by Date Added</option>
+                    <option value="quantity">Sort by Quantity</option>
+                </select>
+                <select id="filterExpiry">
+                    <option value="all">All Items</option>
+                    <option value="expired">Expired</option>
+                    <option value="week">Expires in 7 days</option>
+                    <option value="month">Expires in 30 days</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Stats Dashboard -->
+        <div class="stats-dashboard">
+            <div class="stat-card">
+                <h3>Total Items</h3>
+                <p id="totalItems">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Expiring Soon</h3>
+                <p id="expiringSoon">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Low Stock</h3>
+                <p id="lowStock">0</p>
+            </div>
+        </div>
+
+        <!-- Add Item Form -->
+        <div class="add-item-section">
+            <h2>Add New Item</h2>
+            <form id="addItemForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="itemCategory">Category</label>
+                        <select id="itemCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="freezer">Freezer</option>
+                            <option value="chiller">Chiller</option>
+                            <option value="mid">Mid Section</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemName">Item Name</label>
+                        <input type="text" id="itemName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemQuantity">Quantity</label>
+                        <input type="number" id="itemQuantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="minQuantity">Min. Quantity Alert</label>
+                        <input type="number" id="minQuantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="date" id="expiryDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemNotes">Notes</label>
+                        <textarea id="itemNotes"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemImage">Image</label>
+                        <input type="file" id="itemImage" accept="image/*">
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                </div>
+                <button type="submit">Add Item</button>
+            </form>
+        </div>
+
+        <!-- Inventory Display -->
+        <div class="inventory-container">
+            <div id="freezer" class="category-section active">
+                <h2>Freezer Items</h2>
+                <div class="items-grid"></div>
+            </div>
+
+            <div id="chiller" class="category-section">
+                <h2>Chiller Items</h2>
+                <div class="items-grid"></div>
+            </div>
+
+            <div id="mid" class="category-section">
+                <h2>Mid Section Items</h2>
+                <div class="items-grid"></div>
+            </div>
+        </div>
+
+        <!-- Item Details Modal -->
+        <div id="itemModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
