@@ -118,3 +118,36 @@ Interactive Elements:
 
 Buttons (button:hover): Include hover effects for better usability.
 .toggle-password: Positioned to toggle password visibility.
+
+
+JavaScript
+
+Key Features in this Program:
+
+Form Switching (switchForm):
+
+Dynamically shows and hides forms (display: none).
+Resets forms and hides error/success messages when switching.
+Password Visibility Toggle (togglePassword):
+
+Toggles input type between password and text.
+Password Strength Check (checkPasswordStrength):
+
+Evaluates password against criteria (length, uppercase, lowercase, digit, special character).
+Updates the strength meter dynamically.
+Registration (handleRegister):
+
+Validates input (e.g., password match, username uniqueness).
+Displays appropriate error messages.
+Stores user data in localStorage for persistent storage.
+Login (handleLogin):
+
+Validates credentials against stored data.
+Displays success or error messages based on input.
+Local Storage:
+
+Saves and retrieves user accounts in the browser using localStorage.
+DOM Events:
+
+DOMContentLoaded: Ensures functionality loads after the DOM is ready.
+Input events: Updates the password strength meter in real-time.
