@@ -1,13 +1,13 @@
 :root {
-    --primary-color: #4f46e5;
-    --primary-light: #818cf8;
-    --success-color: #10b981;
-    --warning-color: #f59e0b;
+    --primary-color: #ce755f;
+    --primary-light: #ecae9b;
+    --success-color: #b7d1d5;
+    --warning-color: #f0d1c3;
     --danger-color: #ef4444;
-    --background-color: #f8fafc;
-    --card-background: rgba(255, 255, 255, 0.95);
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
+    --background-color: #f7dfd6;
+    --card-background: rgba(247, 223, 214, 0.95);
+    --text-primary: #4a2f25;
+    --text-secondary: #8b5e3c;
     --border-radius: 16px;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -18,7 +18,7 @@
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, #f7dfd6 0%, #f0d1c3 100%);
     color: var(--text-primary);
     min-height: 100vh;
 }
@@ -58,8 +58,9 @@ h1 {
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 12px;
-    background: transparent;
-    color: var(--text-secondary);
+    background: var(--primary-color);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 500;
@@ -100,14 +101,15 @@ h1 {
     padding: 0.75rem 1rem;
     border: 2px solid #e2e8f0;
     border-radius: 12px;
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ecd1be;
     transition: all 0.3s ease;
 }
 
 .search-box input:focus {
     outline: none;
     border-color: var(--primary-light);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    box-shadow: 0 0 0 3px rgba(236, 174, 155, 0.5);
 }
 
 .filter-options {
@@ -140,7 +142,8 @@ h1 {
 }
 
 .stat-card {
-    background: var(--card-background);
+    background: rgba(247, 223, 214, 0.9);
+    color: var(--text-secondary);
     padding: 1.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
@@ -201,7 +204,7 @@ h1 {
     padding: 0.75rem 1rem;
     border: 2px solid #e2e8f0;
     border-radius: 12px;
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
 }
 
@@ -292,8 +295,8 @@ button[type="submit"]:hover {
 }
 
 .expiry-badge.warning {
-    background: rgba(245, 158, 11, 0.9);
-    color: white;
+    background: rgba(240, 209, 295, 0.9);
+    color: #5c4033;
 }
 
 .quantity-badge.low {
@@ -382,6 +385,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    background-color: #f7dfd6;
 }
 
 .hamburger-btn {
@@ -394,7 +398,7 @@ body {
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: #333;
+    color: #ce755f;
     padding: 5px;
 }
 
@@ -404,7 +408,7 @@ body {
     top: 0;
     height: 100vh;
     width: 250px;
-    background-color: #f8f9fa;
+    background-color: #f0d1c3;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
@@ -418,6 +422,7 @@ body {
     padding: 10px 0;
     font-size: 24px;
     font-weight: bold;
+    color: #ce755f;
 }
 
 .sidebar-nav ul {
@@ -437,13 +442,16 @@ body {
     padding: 10px;
     color: #333;
     text-decoration: none;
+    background-color: #f7dfd6;
+    border-radius: 5px;
     transition: background-color 0.2s;
 }
 
 .sidebar-nav a:hover,
 .sidebar-nav li.active a {
-    background-color: #e9ecef;
+    background-color: #ecae9b;
     border-radius: 5px;
+    color: #fff;
 }
 
 .sidebar-footer {
@@ -457,7 +465,7 @@ body {
     align-items: center;
     gap: 10px;
     padding: 10px;
-    color: #dc3545;
+    color: #ce755f;
     text-decoration: none;
     transition: background-color 0.2s;
     cursor: pointer;
@@ -471,6 +479,8 @@ body {
 .content-wrapper {
     margin-left: 250px;
     padding: 20px;
+    background-color: #b7d1d5;
+    color: #333;
     transition: margin-left 0.3s ease;
 }
 
@@ -479,6 +489,9 @@ body {
     display: none;
     padding: 20px;
     animation: fadeIn 0.3s ease;
+    background-color: #f7dfd6;
+    border: 1px solid #ecae9b;
+    border-radius: 5px;
 }
 
 .panel.active {
