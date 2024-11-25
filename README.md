@@ -91,3 +91,30 @@ Modal Components:
 Script <script>:
 
 Includes script.js for interactivity, such as form validation and toggling password visibility.
+
+
+CSS
+
+Key Features in this Program:
+
+Global Styles:
+
+{ box-sizing: border-box; }: Simplifies sizing calculations.
+Reset styles (margin: 0; padding: 0): Ensures consistency across browsers.
+Body Styling:
+
+Sets font, background color, and centers the content vertically and horizontally.
+Containers:
+
+.container and .card: Control layout, size, padding, and shadows for form containers.
+Form Styling:
+
+input, button, and .form-group: Defines input appearance, hover effects, and layout consistency.
+.error and .success-message: Hidden by default; displayed when triggered via JavaScript.
+Password Strength Meter:
+
+.password-strength and .strength-meter: Visually show password strength using dynamic width and colors.
+Interactive Elements:
+
+Buttons (button:hover): Include hover effects for better usability.
+.toggle-password: Positioned to toggle password visibility.
