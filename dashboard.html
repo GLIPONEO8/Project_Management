@@ -5,8 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enhanced Refrigerator Inventory System</title>
     <link rel="stylesheet" href="stylesdashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
+
+     <!-- Hamburger Button -->
+     <button class="hamburger-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-snowflake"></i>
+            <span>FRIO</span>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active">
+                    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+                </li>
+                <li>
+                    <a href="categories.html"><i class="fas fa-list"></i> Categories</a>
+                </li>
+                <li>
+                    <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <a class="sign-out">
+                <i class="fas fa-sign-out-alt"></i>
+                Sign Out
+            </a>
+        </div>
+    </div>
+
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Your page content will be loaded here -->
+        <div id="main-content">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+    </div>
+
+
     <div class="container">
         <h1>Refrigerator Inventory System</h1>
         
@@ -16,6 +63,7 @@
             <button class="nav-btn" data-category="chiller">Chiller</button>
             <button class="nav-btn" data-category="mid">Mid Section</button>
         </nav>
+
 
         <!-- Search and Filter Bar -->
         <div class="search-filter-bar">
@@ -35,6 +83,24 @@
                     <option value="week">Expires in 7 days</option>
                     <option value="month">Expires in 30 days</option>
                 </select>
+            </div>
+        </div>
+
+        <!-- Inventory Display -->
+        <div class="inventory-container">
+            <div id="freezer" class="category-section active">
+                <h2>Freezer Items</h2>
+                <div class="items-grid"></div>
+            </div>
+
+            <div id="chiller" class="category-section">
+                <h2>Chiller Items</h2>
+                <div class="items-grid"></div>
+            </div>
+
+            <div id="mid" class="category-section">
+                <h2>Mid Section Items</h2>
+                <div class="items-grid"></div>
             </div>
         </div>
 
@@ -98,23 +164,7 @@
             </form>
         </div>
 
-        <!-- Inventory Display -->
-        <div class="inventory-container">
-            <div id="freezer" class="category-section active">
-                <h2>Freezer Items</h2>
-                <div class="items-grid"></div>
-            </div>
-
-            <div id="chiller" class="category-section">
-                <h2>Chiller Items</h2>
-                <div class="items-grid"></div>
-            </div>
-
-            <div id="mid" class="category-section">
-                <h2>Mid Section Items</h2>
-                <div class="items-grid"></div>
-            </div>
-        </div>
+        
 
         <!-- Item Details Modal -->
         <div id="itemModal" class="modal">
