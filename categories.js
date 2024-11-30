@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
 // Initialize display and stats on page load
 document.addEventListener('DOMContentLoaded', () => {
     updateDisplay();
