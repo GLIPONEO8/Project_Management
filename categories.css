@@ -1,0 +1,56 @@
+#categories-section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#categories-section h1 {
+    text-align: center;
+    color: #444;
+}
+
+#toggleCategories {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#toggleCategories:hover {
+    background-color: #0056b3;
+}
+
+#categories {
+    margin-top: 15px;
+}
+
+#categories.hidden {
+    display: none;
+}
+
+#categories h2 {
+    color: #555;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+#categories ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+#categories ul li {
+    margin-bottom: 5px;
+    color: #333;
+}

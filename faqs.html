@@ -1,5 +1,44 @@
-<p>Hello GoodAfternoon</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRIO System FAQs</title>
+    <link rel="stylesheet" href="faqs.css">
+</head>
+<body>
+    <header>
+        <h1>FRIO System FAQs</h1>
+        <p class="subtitle">Commonly asked questions to the FRIO system</p>
+    </header>
 
-<p>KURTTTTTTTTTT</p>
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Seach FAQs...">
+        </div>
 
-<p>SHAIIIIII</p>
+        <div id="faqContainer">
+            <!-- FAQs section-->
+        </div>
+
+        <div class="support section">
+            <h2>Still need help?</h2>
+            <p>Our team is ready to assist you</p>
+            <div class="support-form">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+
+                <label for="email">Your Email</label>
+                <input type="text" id="email" placeholder="Enter your email" required>
+
+                <label for="message">Your Concern</label>
+                <textarea id="message" rows="5" placeholder="Write your message here" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="faqs.js"></script>
+</body>
+</html>

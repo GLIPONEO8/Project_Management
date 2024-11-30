@@ -1,0 +1,225 @@
+:root {
+    --primary-color: #ce755f;
+    --secondary-color: #ecae9b;
+    --background-color: #f7dfd6;
+    --card-background: #f0d1c3;
+    --text-primary: #333333;
+    --text-secondary: #555555;
+    --accent-color: #b7d1d5;
+    --hover-background: #ce755f;
+    --hover-text: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: var(--card-background);
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+h1 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    font-size: 2.5em;
+}
+
+.search-container {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: border-color 0.3s;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.faq-item {
+    background: var(--card-background);
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    background-color: var(--card-background);
+    color: var(--text-primary);
+}
+
+.faq-question:hover {
+    background-color: var(--hover-background);
+    color: var(--hover-text);
+}
+
+.faq-question:after {
+    content: '+';
+    font-size: 24px;
+    color: var(--text-primary);
+    transition: transform 0.3s ease;
+}
+
+.faq-question.active:after {
+    content: '-';
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.faq-answer.show {
+    padding: 20px;
+    max-height: 500px;
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: var(--accent-color);
+    border-radius: 4px;
+    font-size: 0.85em;
+    margin-right: 10px;
+    color: var(--text-primary);
+}
+
+.support-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.support-section h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.support-section p {
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.support-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.support-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.support-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+.support-form input,
+.support-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.support-form input:focus,
+.support-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.support-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.support-form button {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 30px auto 0;
+    padding: 14px 28px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.support-form button:hover {
+    background-color: var(--hover-background);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    header {
+        padding: 20px 15px;
+    }
+
+    .support-section {
+        padding: 20px;
+        margin: 20px 10px;
+    }
+
+    .support-form button {
+        width: 100%;
+    }
+}
