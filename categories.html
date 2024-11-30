@@ -52,36 +52,62 @@
             <!-- Content will be dynamically loaded here -->
         </div>
     </div>
-    <div id="categories-section">
-    <h1>Food Categories</h1>
-    <button id="toggleCategories">Show All Categories</button>
-    <div id="categories" class="hidden">
-        <h2>Beef Parts</h2>
-        <ul>
-            <li>Ribeye</li>
-            <li>Tenderloin</li>
-            <li>Sirloin</li>
-        </ul>
-        <h2>Chicken Parts</h2>
-        <ul>
-            <li>Breast</li>
-            <li>Thigh</li>
-            <li>Wing</li>
-        </ul>
-        <h2>Pork Parts</h2>
-        <ul>
-            <li>Belly</li>
-            <li>Loin</li>
-            <li>Ribs</li>
-        </ul>
-        <h2>Vegetables</h2>
-        <ul>
-            <li>Carrot</li>
-            <li>Broccoli</li>
-            <li>Spinach</li>
-        </ul>
+    <div class="container">
+        <h1>Smart Refrigerator Inventory System</h1>
+        
+        <div class="fridge-sections">
+            <div class="section" data-section="chiller">
+                <div class="section-header">
+                    <i class="icon icon-chiller"></i>
+                    <h2>Chiller Section</h2>
+                    <span class="temperature">0-3°C</span>
+                </div>
+            </div>
+            
+            <div class="section" data-section="middle">
+                <div class="section-header">
+                    <i class="icon icon-middle"></i>
+                    <h2>Main Shelf</h2>
+                    <span class="temperature">3-5°C</span>
+                </div>
+            </div>
+            
+            <div class="section" data-section="bottom">
+                <div class="section-header">
+                    <i class="icon icon-bottom"></i>
+                    <h2>Cold Storage</h2>
+                    <span class="temperature">1-4°C</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="details-panel" class="details-panel">
+            <div class="suggested-items">
+                <h3>Suggested Items</h3>
+                <ul id="suggested-items-list"></ul>
+            </div>
+            
+            <div class="placement-tips">
+                <h3>Placement Tips</h3>
+                <ul id="placement-tips-list"></ul>
+            </div>
+        </div>
+
+        <div class="organization-tips">
+            <button id="tips-toggle">Show Organization Tips</button>
+            <div id="general-tips" class="general-tips">
+                <h3>Fridge Organization Tips</h3>
+                <ul>
+                    <li>Clean fridge regularly</li>
+                    <li>Use clear, stackable containers</li>
+                    <li>Label items with dates</li>
+                    <li>Organize by expiration</li>
+                    <li>Keep raw and cooked foods separate</li>
+                </ul>
+            </div>
+        </div>
     </div>
+
     <script src="categories.js"></script>
 </body>
 </html>
-

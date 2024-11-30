@@ -1,58 +1,8 @@
-#categories-section {
-    margin: 20px;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#categories-section h1 {
-    text-align: center;
-    color: #444;
-}
-
-#toggleCategories {
-    display: block;
-    margin: 10px auto;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-
-#toggleCategories:hover {
-    background-color: #0056b3;
-}
-
-#categories {
-    margin-top: 15px;
-}
-
-#categories.hidden {
-    display: none;
-}
-
-#categories h2 {
-    color: #555;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-
-#categories ul {
-    list-style-type: disc;
-    padding-left: 20px;
-    margin-bottom: 20px;
-}
-
-#categories ul li {
-    margin-bottom: 5px;
-    color: #333;
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #f4f6f7;
+    --text-color: #2c3e50;
 }
 
 * 
@@ -71,6 +21,12 @@ body {
     padding: 0;
     min-height: 100vh;
     background-color: #f7dfd6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .hamburger-btn {
@@ -168,4 +124,155 @@ body {
     background-color: #b7d1d5;
     color: #333;
     transition: margin-left 0.3s ease;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+.fridge-sections {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.section {
+    flex: 1;
+    margin: 0 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.section:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.section.active {
+    border: 2px solid var(--primary-color);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    background-size: cover;
+}
+
+.icon-chiller {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233498db"><path d="M12 22a2 2 0 0 1-2-2v-5H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-5v5a2 2 0 0 1-2 2zm-7-8h14V7H5v7z"/></svg>');
+}
+
+.icon-middle {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232ecc71"><path d="M12 22a2 2 0 0 1-2-2v-5H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-5v5a2 2 0 0 1-2 2zm-7-8h14V7H5v7z"/></svg>');
+}
+
+.icon-bottom {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e74c3c"><path d="M12 22a2 2 0 0 1-2-2v-5H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-5v5a2 2 0 0 1-2 2zm-7-8h14V7H5v7z"/></svg>');
+}
+
+.temperature {
+    margin-left: auto;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.details-panel {
+    display: none;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.details-panel.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.suggested-items, .placement-tips {
+    flex: 1;
+    padding: 0 15px;
+}
+
+.suggested-items ul, .placement-tips ul {
+    list-style-type: none;
+}
+
+.suggested-items li, .placement-tips li {
+    background-color: var(--background-color);
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.suggested-items li:hover, .placement-tips li:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.organization-tips {
+    text-align: center;
+}
+
+#tips-toggle {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#tips-toggle:hover {
+    background-color: #2980b9;
+}
+
+.general-tips {
+    display: none;
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.general-tips.active {
+    display: block;
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
