@@ -251,3 +251,45 @@ document.addEventListener('DOMContentLoaded', () => {
     addInteractiveFeatures();
     createSearchFeature();
 });
+
+const searchInput = document.getElementById('searchInput');
+const searchButton = document.getElementById('searchButton');
+const searchResults = document.getElementById('searchResults');
+
+// Search function
+function searchInventory() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    
+    // Filter inventory based on search term
+    const filteredItems = fridgeInventory.filter(item => 
+        item.name.toLowerCase().includes(searchTerm)
+    );
+    
+    // Clear previous results
+    searchResults.innerHTML = '';
+    
+    // Display results
+    if (filteredItems.length === 0) {
+        searchResults.innerHTML = '<p class="no-results">No items found</p>';
+        return;
+    }
+    
+    filteredItems.forEach(item => {
+        const resultItem = document.createElement('div');
+        resultItem.classList.add('result-item');
+        resultItem.innerHTML = `
+            <strong>${item.name}</strong>
+            <p>Quantity: ${item.quantity} ${item.unit}</p>
+            <p>Expiry Date: ${item.expiryDate}</p>
+        `;
+        searchResults.appendChild(resultItem);
+    });
+}
+
+// Event listeners
+searchButton.addEventListener('click', searchInventory);
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        searchInventory();
+    }
+});
