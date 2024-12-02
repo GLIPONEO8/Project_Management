@@ -29,6 +29,21 @@ body {
     padding: 20px;
 }
 
+.search-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
 #searchButton:hover {
     background-color: #45a049;
 }
@@ -287,9 +302,20 @@ h1 {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+.general-tips ul {
+    list-style: disc;
+    padding-left: 40px;
+    text-align: left;
+    margin: 0;
+}
+
 .general-tips.active {
     display: block;
     animation: slideDown 0.5s ease;
+}
+
+.general-tips li {
+    margin: 5px 0;
 }
 
 @keyframes slideDown {
