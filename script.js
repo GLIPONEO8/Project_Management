@@ -503,3 +503,85 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Place this script either in a <script> tag or in a .js file
+
+// List of suggestions
+const itemSuggestions = [
+    'Apples', 'Milk', 'Eggs', 'Cheese', 'Yogurt', 'Carrots', 'Lettuce', 'Tomatoes', 'Onions', 'Chicken', 'Beef', 'Fish', 'Ice Cream', 'Butter', 'Bread','Spinach', 'Bell Peppers', 'Cucumber', 'Strawberries', 'Blueberries', 'Salmon', 'Ground Beef', 'Ham', 'Sour Cream', 'Cream Cheese', 'Orange Juice', 'Tofu', 'Soft Drinks', 'Avocado', 'Broccoli', 'Green Beans', 'Mushrooms', 'Pork Chops', 'Shrimp', 'Bacon', 'Chorizo', 'Kale', 'Asparagus', 'Coleslaw', 'Mozzarella', 'Cheddar', 'Greek Yogurt', 'Parmesan'
+];
+
+// Wait for the document to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the input field
+    const itemNameInput = document.getElementById('itemName');
+    
+    // Create suggestion container
+    const suggestionContainer = document.createElement('div');
+    suggestionContainer.id = 'suggestionBox';
+    suggestionContainer.style.position = 'absolute';
+    suggestionContainer.style.border = '1px solid #ddd';
+    suggestionContainer.style.maxHeight = '200px';
+    suggestionContainer.style.overflowY = 'auto';
+    suggestionContainer.style.display = 'none';
+    suggestionContainer.style.backgroundColor = 'white';
+    suggestionContainer.style.width = itemNameInput.offsetWidth + 'px';
+
+    // Insert suggestion container after the input
+    itemNameInput.parentNode.insertBefore(suggestionContainer, itemNameInput.nextSibling);
+
+    // Input event listener
+    itemNameInput.addEventListener('input', function() {
+        // Clear previous suggestions
+        suggestionContainer.innerHTML = '';
+        suggestionContainer.style.display = 'none';
+
+        // Get current input value
+        const inputValue = this.value.toLowerCase();
+
+        // If input is empty, don't show suggestions
+        if (!inputValue) return;
+
+        // Filter suggestions
+        const filteredSuggestions = itemSuggestions.filter(item => 
+            item.toLowerCase().includes(inputValue)
+        );
+
+        // If no suggestions, exit
+        if (filteredSuggestions.length === 0) return;
+
+        // Create suggestion items
+        filteredSuggestions.forEach(item => {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.textContent = item;
+            suggestionItem.style.padding = '10px';
+            suggestionItem.style.cursor = 'pointer';
+            suggestionItem.style.borderBottom = '1px solid #eee';
+
+            // Hover effects
+            suggestionItem.addEventListener('mouseover', function() {
+                this.style.backgroundColor = '#f0f0f0';
+            });
+            suggestionItem.addEventListener('mouseout', function() {
+                this.style.backgroundColor = 'white';
+            });
+
+            // Click to select
+            suggestionItem.addEventListener('click', function() {
+                itemNameInput.value = item;
+                suggestionContainer.style.display = 'none';
+            });
+
+            suggestionContainer.appendChild(suggestionItem);
+        });
+
+        // Show suggestions
+        suggestionContainer.style.display = 'block';
+    });
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!suggestionContainer.contains(e.target) && e.target !== itemNameInput) {
+            suggestionContainer.style.display = 'none';
+        }
+    });
+});
