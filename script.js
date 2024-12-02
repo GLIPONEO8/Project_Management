@@ -179,15 +179,14 @@ function handleImagePreview(e) {
     }
 }
 
-// Add new item
 addItemForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
     const category = document.getElementById('itemCategory').value;
     const name = document.getElementById('itemName').value;
-    const quantity = parseInt(document.getElementById('itemQuantity').value);
-    const minQuantity = parseInt(document.getElementById('minQuantity').value);
-    const expiryDate = document.getElementById('expiryDate').value;
+    const quantity = document.getElementById('itemQuantity').value;
+    const unit = document.getElementById('itemUnit').value;
+    const expiryPreset = document.getElementById('expiryPreset').value;
     const notes = document.getElementById('itemNotes').value;
     const imageFile = document.getElementById('itemImage').files[0];
     
@@ -195,24 +194,28 @@ addItemForm.addEventListener('submit', (e) => {
         const reader = new FileReader();
         reader.onload = function(e) {
             const imageData = e.target.result;
-            addItemToInventory(category, name, quantity, minQuantity, expiryDate, notes, imageData);
+            addItemToInventory(category, name, quantity, unit, expiryPreset, notes, imageData);
         };
         reader.readAsDataURL(imageFile);
     } else {
-        addItemToInventory(category, name, quantity, minQuantity, expiryDate, notes);
+        addItemToInventory(category, name, quantity, unit, expiryPreset, notes);
     }
     
     addItemForm.reset();
     imagePreview.innerHTML = '';
 });
 
-function addItemToInventory(category, name, quantity, minQuantity, expiryDate, notes, imageData = null) {
+// Modify the addItemToInventory function
+function addItemToInventory(category, name, quantity, unit, expiryPreset, notes, imageData = null) {
+    // Calculate expiry date based on preset
+    const expiryDate = calculateExpiryDate(expiryPreset);
+    
     const newItem = {
         id: Date.now(),
         name,
-        quantity,
-        minQuantity,
+        quantity: `${quantity} ${unit}`, // Store quantity with unit
         expiryDate,
+        expiryPreset,
         notes,
         image: imageData,
         dateAdded: new Date().toISOString()
@@ -222,6 +225,28 @@ function addItemToInventory(category, name, quantity, minQuantity, expiryDate, n
     saveInventory();
     updateDisplay();
     updateStats();
+}
+
+// Function to calculate expiry date based on preset
+function calculateExpiryDate(expiryPreset) {
+    const today = new Date();
+    
+    switch(expiryPreset) {
+        case 'dairy':
+            return new Date(today.setDate(today.getDate() + 7)).toISOString();
+        case 'meat':
+            return new Date(today.setDate(today.getDate() + 3)).toISOString();
+        case 'vegetables':
+            return new Date(today.setDate(today.getDate() + 7)).toISOString();
+        case 'fruits':
+            return new Date(today.setDate(today.getDate() + 7)).toISOString();
+        case 'bakery':
+            return new Date(today.setDate(today.getDate() + 5)).toISOString();
+        case 'frozen':
+            return new Date(today.setMonth(today.getMonth() + 6)).toISOString();
+        default:
+            return new Date(today.setDate(today.getDate() + 30)).toISOString(); // Default 30 days
+    }
 }
 
 function updateDisplay() {
@@ -298,7 +323,6 @@ function displayItems(category, items) {
         
         // Calculate expiry status
         const expiryStatus = getExpiryStatus(item.expiryDate);
-        const quantityStatus = item.quantity <= item.minQuantity ? 'low' : 'normal';
         
         itemCard.innerHTML = `
             ${item.image ? 
@@ -307,9 +331,6 @@ function displayItems(category, items) {
             }
             ${expiryStatus !== 'normal' ? 
                 `<span class="expiry-badge ${expiryStatus}">${expiryStatus}</span>` : ''
-            }
-            ${quantityStatus === 'low' ? 
-                `<span class="quantity-badge low">Low Stock</span>` : ''
             }
             <div class="item-info">
                 <h3>${item.name}</h3>
@@ -345,7 +366,7 @@ function showItemDetails(itemId, category) {
         <div class="item-details">
             <p><strong>Category:</strong> ${category}</p>
             <p><strong>Quantity:</strong> ${item.quantity}</p>
-            <p><strong>Minimum Quantity:</strong> ${item.minQuantity}</p>
+            <p><strong>Expiry Preset:</strong> ${item.expiryPreset}</p>
             <p><strong>Expiry Date:</strong> ${new Date(item.expiryDate).toLocaleDateString()}</p>
             <p><strong>Date Added:</strong> ${new Date(item.dateAdded).toLocaleDateString()}</p>
             ${item.notes ? `<p><strong>Notes:</strong> ${item.notes}</p>` : ''}

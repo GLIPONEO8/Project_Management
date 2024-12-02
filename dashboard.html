@@ -138,18 +138,59 @@
                         <label for="itemName">Item Name</label>
                         <input type="text" id="itemName" required>
                     </div>
-                    <div class="form-group">
-                        <label for="itemQuantity">Quantity</label>
-                        <input type="number" id="itemQuantity" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="minQuantity">Min. Quantity Alert</label>
-                        <input type="number" id="minQuantity" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="expiryDate">Expiry Date</label>
-                        <input type="date" id="expiryDate" required>
-                    </div>
+                    
+                    <!-- Modify the Add Item Form section -->
+<div class="form-group">
+    <label for="itemQuantity">Quantity</label>
+    <div class="quantity-input">
+        <input type="number" id="itemQuantity" required step="0.01">
+        <select id="itemUnit" required>
+            <option value="">Select Unit</option>
+            <option value="kg">kg</option>
+            <option value="g">g</option>
+            <option value="mg">mg</option>
+            <option value="lb">lb</option>
+            <option value="oz">oz</option>
+            <option value="pieces">pieces</option>
+            <option value="ml">ml</option>
+            <option value="l">l</option>
+        </select>
+    </div>
+</div>
+
+<!-- Modify the Add Item Form section -->
+<div class="form-group">
+    <label for="itemQuantity">Quantity</label>
+    <div class="quantity-input">
+        <input type="number" id="itemQuantity" required step="0.01">
+        <select id="itemUnit" required>
+            <option value="">Select Unit</option>
+            <option value="kg">kg</option>
+            <option value="g">g</option>
+            <option value="mg">mg</option>
+            <option value="lb">lb</option>
+            <option value="oz">oz</option>
+            <option value="pieces">pieces</option>
+            <option value="ml">ml</option>
+            <option value="l">l</option>
+        </select>
+    </div>
+</div>
+
+<!-- Predefined Expiration Dates -->
+<div class="form-group">
+    <label for="expiryPreset">Expiration Preset</label>
+    <select id="expiryPreset">
+        <option value="">Select Preset</option>
+        <option value="dairy">Dairy (7 days)</option>
+        <option value="meat">Raw Meat (2-3 days)</option>
+        <option value="vegetables">Fresh Vegetables (5-7 days)</option>
+        <option value="fruits">Fresh Fruits (5-7 days)</option>
+        <option value="bakery">Bakery Items (3-5 days)</option>
+        <option value="frozen">Frozen Items (3-6 months)</option>
+    </select>
+</div>
+
                     <div class="form-group">
                         <label for="itemNotes">Notes</label>
                         <textarea id="itemNotes"></textarea>
