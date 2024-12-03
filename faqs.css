@@ -349,3 +349,59 @@ body {
     color: #333;
     transition: margin-left 0.3s ease;
 }
+
+#sidebar-toggle-btn {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: left center;
+    z-index: 1100;
+    padding: 10px 15px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 0 0 5px 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    outline: none;
+}
+#sidebar-toggle-btn:hover {
+    background-color: #34495e;
+    transform: translateY(-50%) rotate(90deg) scale(1.05);
+}
+#sidebar-toggle-btn:active {
+    background-color: #1c2833;
+    transform: translateY(-50%) rotate(90deg) scale(0.95);
+}
+.sidebar {
+    transition: all 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #f8f9fa;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+.sidebar:not(.active) {
+    width: 0;
+    visibility: hidden;
+    opacity: 0;
+}
+.sidebar.active {
+    width: 250px; /* Adjust as needed */
+    visibility: visible;
+    opacity: 1;
+}
+.content-wrapper {
+    transition: all 0.3s ease;
+}
+.content-wrapper:not(.sidebar-active) {
+    width: 100%;
+    margin-left: 0;
+}
+.content-wrapper.sidebar-active {
+    width: calc(100% - 250px); /* Adjust to match sidebar width */
+    margin-left: 250px;
+}
