@@ -1,7 +1,7 @@
 :root {
     --primary-color: #ce755f;
     --primary-light: #ecae9b;
-    --success-color: #b7d1d5;
+    --success-color: #a1ff6a;
     --warning-color: #f0d1c3;
     --danger-color: #ef4444;
     --background-color: #f7dfd6;
@@ -18,7 +18,7 @@
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
-    background: linear-gradient(135deg, #f7dfd6 0%, #f0d1c3 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #747474 100%);
     color: var(--text-primary);
     min-height: 100vh;
 }
@@ -147,9 +147,11 @@ h1 {
     padding: 1.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; //Sets the color of an element's text
+}
+    {
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0);
 }
 
 .stat-card:hover {
@@ -296,7 +298,7 @@ button[type="submit"]:hover {
 
 .expiry-badge.warning {
     background: rgba(240, 209, 295, 0.9);
-    color: #5c4033;
+    color: #38ddfa;
 }
 
 .quantity-badge.low {
