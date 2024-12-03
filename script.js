@@ -462,3 +462,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.querySelector('.sidebar');
+    const contentWrapper = document.querySelector('.content-wrapper');
+    
+    // Create toggle button
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = '☰ Menu';
+    toggleButton.id = 'sidebar-toggle-btn';
+    toggleButton.setAttribute('aria-label', 'Toggle Sidebar');
+    
+    // Append button to body
+    document.body.appendChild(toggleButton);
+
+    // Add click event to toggle button
+    toggleButton.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        contentWrapper.classList.toggle('sidebar-active');
+        
+        // Update button text based on sidebar state
+        toggleButton.textContent = sidebar.classList.contains('active') 
+            ? '✕ Close' 
+            : '☰ Menu';
+    });
+});
+
