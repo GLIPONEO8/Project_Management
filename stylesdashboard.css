@@ -508,6 +508,14 @@ body {
 
 /* Responsive styles */
 @media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    header {
+        padding: 20px 15px;
+    }
+
     .hamburger-btn {
         display: block;
     }
