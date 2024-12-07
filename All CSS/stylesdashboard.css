@@ -147,9 +147,7 @@ h1 {
     padding: 1.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
-    transition: transform 0.3s ease; //Sets the color of an element's text
-}
-    {
+    transition: transform 0.3s ease;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0);
 }
