@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FRIO System FAQs</title>
-    <link rel="stylesheet" href="/All CSS/faqs.css" />
+    <title>FRIO- Shops</title>
+    <link rel="stylesheet" href="/All CSS/shops.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -55,54 +55,41 @@
 
     <!-- Content wrapper -->
     <div class="content-wrapper">
-      <!-- Your page content will be loaded here -->
-      <div id="main-content">
-        <!-- Content will be dynamically loaded here -->
-      </div>
-    </div>
+      <!--Shop section-->
+      <aside class="shops-section">
+        <h2>Nearby Shops</h2>
+        <div class="location-info">
+          <p>Your Location: <span id="current-location">Loading...</span></p>
+          <button id="refresh-location" class="btn">Refresh Location</button>
+        </div>
 
-    <header>
-      <h1>FRIO System FAQs</h1>
-      <p class="subtitle">Commonly asked questions to the FRIO system</p>
-    </header>
+        <div class="shop-categories">
+          <button class="category-btn active" data-category="all">
+            All shops
+          </button>
+          <button class="category-btn" data-category="all">Wet Markets</button>
+          <button class="category-btn" data-category="all">
+            Supermarkerts
+          </button>
+          <button class="category-btn" data-category="all">Hypermarkets</button>
+        </div>
 
-    <div class="container">
-      <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Seach FAQs..." />
-      </div>
+        <div class="shop-list" id="shopList">
+          <!--Shops will be added here-->
+        </div>
+      </aside>
 
-      <div id="faqContainer">
-        <!-- FAQs section-->
-      </div>
-
-      <div class="support section">
-        <h2>Still need help?</h2>
-        <p>Our team is ready to assist you</p>
-        <div class="support-form">
-          <label for="name">Your Name</label>
-          <input type="text" id="name" placeholder="Enter your name" required />
-
-          <label for="email">Your Email</label>
-          <input
-            type="text"
-            id="email"
-            placeholder="Enter your email"
-            required
-          />
-
-          <label for="message">Your Concern</label>
-          <textarea
-            id="message"
-            rows="5"
-            placeholder="Write your message here"
-            required
-          ></textarea>
-
-          <button type="submit">Send Message</button>
+      <!--Shop details modal-->
+      <div id="shopModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div id="shopDetails"></div>
+          <div id="map"></div>
         </div>
       </div>
     </div>
 
-    <script src="/All JS/faqs.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY_"></script>
+    <script src="/All JS/shops.js"></script>
   </body>
 </html>

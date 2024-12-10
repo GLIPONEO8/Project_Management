@@ -1,114 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Food Categories</title>
-    <link rel="stylesheet" href="/All CSS/categories.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="/All CSS/categories.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
     <!-- Hamburger Button -->
     <button class="hamburger-btn">
-        <i class="fas fa-bars"></i>
+      <i class="fas fa-bars"></i>
     </button>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-header">
-            <i class="fas fa-snowflake"></i>
-            <span>FRIO</span>
-        </div>
-        <nav class="sidebar-nav">
-            <ul>
-                <li class="active">
-                    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
-                </li>
-                <li>
-                    <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
-                </li>
-                <li>
-                    <a href="categories.html"><i class="fas fa-list"></i> Categories</a>
-                </li>
-                <li>
-                    <a href="faqs.html"><i class="fas fa-envelope"></i> FAQs</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="sidebar-footer">
-            <a class="sign-out">
-                <i class="fas fa-sign-out-alt"></i>
-                Sign Out
-            </a>
-        </div>
+      <div class="sidebar-header">
+        <i class="fas fa-snowflake"></i>
+        <span>FRIO</span>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active">
+            <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+          </li>
+          <li>
+            <a href="categories.html"><i class="fas fa-list"></i> Categories</a>
+          </li>
+          <li>
+            <a href="faqs.html"><i class="fas fa-envelope"></i> FAQs</a>
+          </li>
+          <li>
+            <a href="shops.html"><i class="fas fa-store"></i> Shops</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="sign-out">
+          <i class="fas fa-sign-out-alt"></i>
+          Sign Out
+        </a>
+      </div>
     </div>
 
     <!-- Content wrapper -->
     <div class="content-wrapper">
-        <!-- Your page content will be loaded here -->
-        <div id="main-content">
-            <!-- Content will be dynamically loaded here -->
-        </div>
+      <!-- Your page content will be loaded here -->
+      <div id="main-content">
+        <!-- Content will be dynamically loaded here -->
+      </div>
     </div>
-    
+
     <div class="container">
-        <h1>Smart Refrigerator Inventory System</h1>
-        
-        <div class="fridge-sections">
-            <div class="section" data-section="chiller">
-                <div class="section-header">
-                    <i class="icon icon-chiller"></i>
-                    <h2>Chiller Section</h2>
-                    <span class="temperature">0-3°C</span>
-                </div>
-            </div>
-            
-            <div class="section" data-section="middle">
-                <div class="section-header">
-                    <i class="icon icon-middle"></i>
-                    <h2>Main Shelf</h2>
-                    <span class="temperature">3-5°C</span>
-                </div>
-            </div>
-            
-            <div class="section" data-section="bottom">
-                <div class="section-header">
-                    <i class="icon icon-bottom"></i>
-                    <h2>Cold Storage</h2>
-                    <span class="temperature">1-4°C</span>
-                </div>
-            </div>
+      <h1>Smart Refrigerator Inventory System</h1>
+
+      <div class="fridge-sections">
+        <div class="section" data-section="chiller">
+          <div class="section-header">
+            <i class="icon icon-chiller"></i>
+            <h2>Chiller Section</h2>
+            <span class="temperature">0-3°C</span>
+          </div>
         </div>
 
-        <div id="details-panel" class="details-panel">
-            <div class="suggested-items">
-                <h3>Suggested Items</h3>
-                <ul id="suggested-items-list"></ul>
-            </div>
-            
-            <div class="placement-tips">
-                <h3>Placement Tips</h3>
-                <ul id="placement-tips-list"></ul>
-            </div>
+        <div class="section" data-section="middle">
+          <div class="section-header">
+            <i class="icon icon-middle"></i>
+            <h2>Main Shelf</h2>
+            <span class="temperature">3-5°C</span>
+          </div>
         </div>
 
-        <div class="organization-tips">
-            <button id="tips-toggle">Show Organization Tips</button>
-            <div id="general-tips" class="general-tips">
-                <h3>Fridge Organization Tips</h3>
-                <ul>
-                    <li>Clean fridge regularly</li>
-                    <li>Use clear, stackable containers</li>
-                    <li>Label items with dates</li>
-                    <li>Organize by expiration</li>
-                    <li>Keep raw and cooked foods separate</li>
-                </ul>
-            </div>
+        <div class="section" data-section="bottom">
+          <div class="section-header">
+            <i class="icon icon-bottom"></i>
+            <h2>Cold Storage</h2>
+            <span class="temperature">1-4°C</span>
+          </div>
         </div>
+      </div>
+
+      <div id="details-panel" class="details-panel">
+        <div class="suggested-items">
+          <h3>Suggested Items</h3>
+          <ul id="suggested-items-list"></ul>
+        </div>
+
+        <div class="placement-tips">
+          <h3>Placement Tips</h3>
+          <ul id="placement-tips-list"></ul>
+        </div>
+      </div>
+
+      <div class="organization-tips">
+        <button id="tips-toggle">Show Organization Tips</button>
+        <div id="general-tips" class="general-tips">
+          <h3>Fridge Organization Tips</h3>
+          <ul>
+            <li>Clean fridge regularly</li>
+            <li>Use clear, stackable containers</li>
+            <li>Label items with dates</li>
+            <li>Organize by expiration</li>
+            <li>Keep raw and cooked foods separate</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <script src="/All JS/categories.js"></script>
-</body>
+  </body>
 </html>

@@ -1,219 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Enhanced Refrigerator Inventory System</title>
-    <link rel="stylesheet" href="/All CSS/stylesdashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
-<body>
-
-     <!-- Hamburger Button -->
-     <button class="hamburger-btn">
-        <i class="fas fa-bars"></i>
+    <link rel="stylesheet" href="/All CSS/stylesdashboard.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Hamburger Button -->
+    <button class="hamburger-btn">
+      <i class="fas fa-bars"></i>
     </button>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-header">
-            <i class="fas fa-snowflake"></i>
-            <span>FRIO</span>
-        </div>
-        <nav class="sidebar-nav">
-            <ul>
-                <li class="active">
-                    <a href="/dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
-                </li>
-                <li>
-                    <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
-                </li>
-                <li>
-                    <a href="categories.html"><i class="fas fa-list"></i> Categories</a>
-                </li>
-                <li>
-                    <a href="faqs.html"><i class="fas fa-envelope"></i> FAQs</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="sidebar-footer">
-            <a class="sign-out">
-                <i class="fas fa-sign-out-alt"></i>
-                Sign Out
-            </a>
-        </div>
+      <div class="sidebar-header">
+        <i class="fas fa-snowflake"></i>
+        <span>FRIO</span>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active">
+            <a href="/dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+          </li>
+          <li>
+            <a href="categories.html"><i class="fas fa-list"></i> Categories</a>
+          </li>
+          <li>
+            <a href="faqs.html"><i class="fas fa-envelope"></i> FAQs</a>
+          </li>
+          <li>
+            <a href="shops.html"><i class="fas fa-store"></i> Shops</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <a class="sign-out">
+          <i class="fas fa-sign-out-alt"></i>
+          Sign Out
+        </a>
+      </div>
     </div>
 
     <!-- Content wrapper -->
     <div class="content-wrapper">
-        <!-- Your page content will be loaded here -->
-        <div id="main-content">
-            <!-- Content will be dynamically loaded here -->
-        </div>
+      <!-- Your page content will be loaded here -->
+      <div id="main-content">
+        <!-- Content will be dynamically loaded here -->
+      </div>
     </div>
-
 
     <div class="container">
-        <h1>Refrigerator Inventory System</h1>
-        
-        <!-- Navigation -->
-        <nav class="category-nav">
-            <button class="nav-btn active" data-category="freezer">Freezer</button>
-            <button class="nav-btn" data-category="chiller">Chiller</button>
-            <button class="nav-btn" data-category="mid">Mid Section</button>
-        </nav>
+      <h1>Refrigerator Inventory System</h1>
 
+      <!-- Navigation -->
+      <nav class="category-nav">
+        <button class="nav-btn active" data-category="freezer">Freezer</button>
+        <button class="nav-btn" data-category="chiller">Chiller</button>
+        <button class="nav-btn" data-category="mid">Mid Section</button>
+      </nav>
 
-        <!-- Search and Filter Bar -->
-        <div class="search-filter-bar">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search items...">
+      <!-- Search and Filter Bar -->
+      <div class="search-filter-bar">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search items..." />
+        </div>
+        <div class="filter-options">
+          <select id="sortBy">
+            <option value="name">Sort by Name</option>
+            <option value="expiry">Sort by Expiry Date</option>
+            <option value="dateAdded">Sort by Date Added</option>
+            <option value="quantity">Sort by Quantity</option>
+          </select>
+          <select id="filterExpiry">
+            <option value="all">All Items</option>
+            <option value="expired">Expired</option>
+            <option value="week">Expires in 7 days</option>
+            <option value="month">Expires in 30 days</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Inventory Display -->
+      <div class="inventory-container">
+        <div id="freezer" class="category-section active">
+          <h2>Freezer Items</h2>
+          <div class="items-grid"></div>
+        </div>
+
+        <div id="chiller" class="category-section">
+          <h2>Chiller Items</h2>
+          <div class="items-grid"></div>
+        </div>
+
+        <div id="mid" class="category-section">
+          <h2>Mid Section Items</h2>
+          <div class="items-grid"></div>
+        </div>
+      </div>
+
+      <!-- Stats Dashboard -->
+      <div class="stats-dashboard">
+        <div class="stat-card">
+          <h3>Total Items</h3>
+          <p id="totalItems">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Expiring Soon</h3>
+          <p id="expiringSoon">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Low Stock</h3>
+          <p id="lowStock">0</p>
+        </div>
+      </div>
+
+      <!-- Add Item Form -->
+      <div class="add-item-section">
+        <h2>Add New Item</h2>
+        <form id="addItemForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="itemCategory">Category</label>
+              <select id="itemCategory" required>
+                <option value="">Select Category</option>
+                <option value="freezer">Freezer</option>
+                <option value="chiller">Chiller</option>
+                <option value="mid">Mid Section</option>
+              </select>
             </div>
-            <div class="filter-options">
-                <select id="sortBy">
-                    <option value="name">Sort by Name</option>
-                    <option value="expiry">Sort by Expiry Date</option>
-                    <option value="dateAdded">Sort by Date Added</option>
-                    <option value="quantity">Sort by Quantity</option>
+            <div class="form-group">
+              <label for="itemName">Item Name</label>
+              <input type="text" id="itemName" required />
+            </div>
+
+            <!-- Modify the Add Item Form section -->
+            <div class="form-group">
+              <label for="itemQuantity">Quantity</label>
+              <div class="quantity-input">
+                <input type="number" id="itemQuantity" required step="0.01" />
+                <select id="itemUnit" required>
+                  <option value="">Select Unit</option>
+                  <option value="kg">kg</option>
+                  <option value="g">g</option>
+                  <option value="mg">mg</option>
+                  <option value="lb">lb</option>
+                  <option value="oz">oz</option>
+                  <option value="pieces">pieces</option>
+                  <option value="ml">ml</option>
+                  <option value="l">l</option>
                 </select>
-                <select id="filterExpiry">
-                    <option value="all">All Items</option>
-                    <option value="expired">Expired</option>
-                    <option value="week">Expires in 7 days</option>
-                    <option value="month">Expires in 30 days</option>
+              </div>
+            </div>
+
+            <!-- Modify the Add Item Form section -->
+            <div class="form-group">
+              <label for="itemQuantity">Quantity</label>
+              <div class="quantity-input">
+                <input type="number" id="itemQuantity" required step="0.01" />
+                <select id="itemUnit" required>
+                  <option value="">Select Unit</option>
+                  <option value="kg">kg</option>
+                  <option value="g">g</option>
+                  <option value="mg">mg</option>
+                  <option value="lb">lb</option>
+                  <option value="oz">oz</option>
+                  <option value="pieces">pieces</option>
+                  <option value="ml">ml</option>
+                  <option value="l">l</option>
                 </select>
+              </div>
             </div>
+
+            <!-- Predefined Expiration Dates -->
+            <div class="form-group">
+              <label for="expiryPreset">Expiration Preset</label>
+              <select id="expiryPreset">
+                <option value="">Select Preset</option>
+                <option value="dairy">Dairy (7 days)</option>
+                <option value="meat">Raw Meat (2-3 days)</option>
+                <option value="vegetables">Fresh Vegetables (5-7 days)</option>
+                <option value="fruits">Fresh Fruits (5-7 days)</option>
+                <option value="bakery">Bakery Items (3-5 days)</option>
+                <option value="frozen">Frozen Items (3-6 months)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="itemNotes">Notes</label>
+              <textarea id="itemNotes"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="itemImage">Image</label>
+              <input type="file" id="itemImage" accept="image/*" />
+              <div id="imagePreview" class="image-preview"></div>
+            </div>
+          </div>
+          <button type="submit">Add Item</button>
+        </form>
+      </div>
+
+      <!-- Item Details Modal -->
+      <div id="itemModal" class="modal">
+        <div class="modal-content">
+          <span class="close-modal">&times;</span>
+          <div id="modalContent"></div>
         </div>
-
-        <!-- Inventory Display -->
-        <div class="inventory-container">
-            <div id="freezer" class="category-section active">
-                <h2>Freezer Items</h2>
-                <div class="items-grid"></div>
-            </div>
-
-            <div id="chiller" class="category-section">
-                <h2>Chiller Items</h2>
-                <div class="items-grid"></div>
-            </div>
-
-            <div id="mid" class="category-section">
-                <h2>Mid Section Items</h2>
-                <div class="items-grid"></div>
-            </div>
-        </div>
-
-        <!-- Stats Dashboard -->
-        <div class="stats-dashboard">
-            <div class="stat-card">
-                <h3>Total Items</h3>
-                <p id="totalItems">0</p>
-            </div>
-            <div class="stat-card">
-                <h3>Expiring Soon</h3>
-                <p id="expiringSoon">0</p>
-            </div>
-            <div class="stat-card">
-                <h3>Low Stock</h3>
-                <p id="lowStock">0</p>
-            </div>
-        </div>
-
-        <!-- Add Item Form -->
-        <div class="add-item-section">
-            <h2>Add New Item</h2>
-            <form id="addItemForm">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="itemCategory">Category</label>
-                        <select id="itemCategory" required>
-                            <option value="">Select Category</option>
-                            <option value="freezer">Freezer</option>
-                            <option value="chiller">Chiller</option>
-                            <option value="mid">Mid Section</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="itemName">Item Name</label>
-                        <input type="text" id="itemName" required>
-                    </div>
-                    
-                    <!-- Modify the Add Item Form section -->
-<div class="form-group">
-    <label for="itemQuantity">Quantity</label>
-    <div class="quantity-input">
-        <input type="number" id="itemQuantity" required step="0.01">
-        <select id="itemUnit" required>
-            <option value="">Select Unit</option>
-            <option value="kg">kg</option>
-            <option value="g">g</option>
-            <option value="mg">mg</option>
-            <option value="lb">lb</option>
-            <option value="oz">oz</option>
-            <option value="pieces">pieces</option>
-            <option value="ml">ml</option>
-            <option value="l">l</option>
-        </select>
-    </div>
-</div>
-
-<!-- Modify the Add Item Form section -->
-<div class="form-group">
-    <label for="itemQuantity">Quantity</label>
-    <div class="quantity-input">
-        <input type="number" id="itemQuantity" required step="0.01">
-        <select id="itemUnit" required>
-            <option value="">Select Unit</option>
-            <option value="kg">kg</option>
-            <option value="g">g</option>
-            <option value="mg">mg</option>
-            <option value="lb">lb</option>
-            <option value="oz">oz</option>
-            <option value="pieces">pieces</option>
-            <option value="ml">ml</option>
-            <option value="l">l</option>
-        </select>
-    </div>
-</div>
-
-<!-- Predefined Expiration Dates -->
-<div class="form-group">
-    <label for="expiryPreset">Expiration Preset</label>
-    <select id="expiryPreset">
-        <option value="">Select Preset</option>
-        <option value="dairy">Dairy (7 days)</option>
-        <option value="meat">Raw Meat (2-3 days)</option>
-        <option value="vegetables">Fresh Vegetables (5-7 days)</option>
-        <option value="fruits">Fresh Fruits (5-7 days)</option>
-        <option value="bakery">Bakery Items (3-5 days)</option>
-        <option value="frozen">Frozen Items (3-6 months)</option>
-    </select>
-</div>
-
-                    <div class="form-group">
-                        <label for="itemNotes">Notes</label>
-                        <textarea id="itemNotes"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="itemImage">Image</label>
-                        <input type="file" id="itemImage" accept="image/*">
-                        <div id="imagePreview" class="image-preview"></div>
-                    </div>
-                </div>
-                <button type="submit">Add Item</button>
-            </form>
-        </div>
-
-        <!-- Item Details Modal -->
-        <div id="itemModal" class="modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <div id="modalContent"></div>
-            </div>
-        </div>
+      </div>
     </div>
 
     <script src="/All JS/script.js"></script>
-</body>
+  </body>
 </html>
