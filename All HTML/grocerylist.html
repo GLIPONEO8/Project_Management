@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List</title>
+    <link rel="stylesheet" href="/All CSS/grocerylist.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="grocery-list-container">
+        <div class="grocery-list-header">
+            <h1>Grocery Lists</h1>
+            <button id="createNewListBtn" class="add-list-btn">
+                <i class="fas fa-plus"></i> Create New List
+            </button>
+        </div>
+
+        <div id="listContainer" class="list-container">
+            <!-- Existing lists will be dynamically added here -->
+        </div>
+
+        <!-- Modal for Creating/Editing List -->
+        <div id="listModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="modalTitle">Create New List</h2>
+                <input type="text" id="listNameInput" placeholder="Enter list name">
+                <button id="saveListBtn">Save List</button>
+            </div>
+        </div>
+
+        <!-- Modal for Adding/Editing Items -->
+        <div id="itemModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="itemModalTitle">Add Item</h2>
+                <input type="text" id="itemNameInput" placeholder="Item name">
+                <input type="number" id="itemQuantityInput" placeholder="Quantity" min="1">
+                <button id="saveItemBtn">Save Item</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/All JS/grocerylist.js"></script>
+</body>
+</html>
