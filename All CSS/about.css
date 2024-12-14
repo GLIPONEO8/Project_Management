@@ -9,6 +9,7 @@ body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   color: #333;
+  background-color: #deebec;
 }
 
 .container {
@@ -55,7 +56,7 @@ section h2 {
 }
 
 .value-card {
-  background: #f9f9f9;
+  background: #bed9dd;
   padding: 30px;
   border-radius: 10px;
   text-align: center;
@@ -99,7 +100,7 @@ section h2 {
 }
 
 .feature {
-  background: #f9f9f9;
+  background: #bed9dd;
   padding: 30px;
   border-radius: 10px;
   text-align: center;
@@ -121,7 +122,7 @@ section h2 {
 .contact-form input,
 .contact-form textarea {
   padding: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid #73b3b2;
   border-radius: 5px;
 }
 
@@ -131,7 +132,7 @@ section h2 {
 
 .contact-form button {
   padding: 15px 30px;
-  background: #007bff;
+  background: #3c979f;
   color: white;
   border: none;
   border-radius: 5px;
@@ -140,7 +141,7 @@ section h2 {
 }
 
 .contact-form button:hover {
-  background: #0056b3;
+  background: #73b3b2;
 }
 
 /* Animation Classes */
@@ -188,10 +189,12 @@ section h2 {
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Body and Sidebar Styles */
 body {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
   line-height: 1.6;
-  background: linear-gradient(135deg, #f7dfd6 0%, #f0d1c3 100%);
+  background: linear-gradient(135deg, #deebec 0%, #bed9dd 100%);
   color: var(--text-primary);
   min-height: 100vh;
 }
@@ -230,7 +233,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-color: #f7dfd6;
+  background-color: #aecfd0;
 }
 
 .hamburger-btn {
@@ -243,7 +246,7 @@ body {
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #ce755f;
+  color: #3c979f;
   padding: 5px;
 }
 
@@ -253,7 +256,7 @@ body {
   top: 0;
   height: 100vh;
   width: 250px;
-  background-color: #f0d1c3;
+  background-color: #bed9dd;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -267,7 +270,7 @@ body {
   padding: 10px 0;
   font-size: 24px;
   font-weight: bold;
-  color: #ce755f;
+  color: #3c979f;
 }
 
 .sidebar-nav ul {
@@ -287,16 +290,16 @@ body {
   padding: 10px;
   color: #333;
   text-decoration: none;
-  background-color: #f7dfd6;
+  background-color: #deebec;
   border-radius: 5px;
   transition: background-color 0.2s;
 }
 
 .sidebar-nav a:hover,
 .sidebar-nav li.active a {
-  background-color: #ecae9b;
+  background-color: #aecfd0;
   border-radius: 5px;
-  color: #2f1c17;
+  color: #333;
 }
 
 .sidebar-footer {
@@ -310,23 +313,22 @@ body {
   align-items: center;
   gap: 10px;
   padding: 10px;
-  color: #ce755f;
+  color: #3c979f;
   text-decoration: none;
   transition: background-color 0.2s;
   cursor: pointer;
 }
 
 .sign-out:hover {
-  background-color: #ffe6e6;
+  background-color: #73b3b2;
   border-radius: 5px;
-  color: #2f1c17;
+  color: #333;
 }
 
 .content-wrapper {
   margin-left: 250px;
   padding: 20px;
-  background-color: #b7d1d5;
-  color: #333;
+  background-color: #bed9dd;
   transition: margin-left 0.3s ease;
 }
 
@@ -338,7 +340,7 @@ body {
   transform-origin: left center;
   z-index: 1100;
   padding: 10px 15px;
-  background-color: #2c3e50;
+  background-color: #3c979f;
   color: white;
   border: none;
   border-radius: 0 0 5px 5px;
@@ -348,11 +350,11 @@ body {
   outline: none;
 }
 #sidebar-toggle-btn:hover {
-  background-color: #34495e;
+  background-color: #73b3b2;
   transform: translateY(-50%) rotate(90deg) scale(1.05);
 }
 #sidebar-toggle-btn:active {
-  background-color: #1c2833;
+  background-color: #aecfd0;
   transform: translateY(-50%) rotate(90deg) scale(0.95);
 }
 .sidebar {
@@ -361,7 +363,7 @@ body {
   top: 0;
   left: 0;
   height: 100%;
-  background-color: #f8f9fa;
+  background-color: #bed9dd;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 .sidebar:not(.active) {

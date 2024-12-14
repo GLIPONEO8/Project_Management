@@ -1,13 +1,13 @@
 :root {
-  --primary-color: #ce755f;
-  --primary-light: #ecae9b;
+  --primary-color: #3c979f;
+  --primary-light: #73b3b2;
   --success-color: #a1ff6a;
-  --warning-color: #f0d1c3;
+  --warning-color: #aecfd0;
   --danger-color: #ef4444;
-  --background-color: #f7dfd6;
-  --card-background: rgba(247, 223, 214, 0.95);
-  --text-primary: #4a2f25;
-  --text-secondary: #8b5e3c;
+  --background-color: #deebec;
+  --card-background: rgba(222, 235, 236, 0.95);
+  --text-primary: #2a4344;
+  --text-secondary: #456466;
   --border-radius: 16px;
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
@@ -24,7 +24,7 @@
 body {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
   line-height: 1.6;
-  background: linear-gradient(135deg, #ffffff 0%, #747474 100%);
+  background: linear-gradient(135deg, #deebec 0%, #bed9dd 100%);
   color: var(--text-primary);
   min-height: 100vh;
 }
@@ -69,7 +69,7 @@ h1 {
   border: none;
   border-radius: 12px;
   background: var(--primary-color);
-  color: #fff;
+  color: #deebec;
   box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -77,8 +77,8 @@ h1 {
 }
 
 .nav-btn:hover {
-  background: #a64e3a;
-  color: #fff;
+  background: #73b3b2;
+  color: #deebec;
 }
 
 .nav-btn.active {
@@ -109,10 +109,10 @@ h1 {
 .search-box input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #aecfd0;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.1);
-  border-color: #ecd1be;
+  border-color: #aecfd0;
   transition: all 0.3s ease;
 }
 
@@ -152,7 +152,7 @@ h1 {
 }
 
 .stat-card {
-  background: rgba(247, 223, 214, 0.9);
+  background: rgba(222, 235, 236, 0.9);
   color: var(--text-secondary);
   padding: 1.5rem;
   border-radius: var(--border-radius);
@@ -305,17 +305,17 @@ button[type="submit"]:hover {
 
 .expiry-badge.expired {
   background: rgba(239, 68, 68, 0.9);
-  color: white;
+  color: #deebec;
 }
 
 .expiry-badge.warning {
   background: rgba(240, 209, 295, 0.9);
-  color: #38ddfa;
+  color: #3c979f;
 }
 
 .quantity-badge.low {
   background: rgba(239, 68, 68, 0.9);
-  color: white;
+  color: #deebec;
 }
 
 /* Modal Styles */
@@ -399,7 +399,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-color: #f7dfd6;
+  background-color: #deebec;
 }
 
 .hamburger-btn {
@@ -412,7 +412,7 @@ body {
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #ce755f;
+  color: #bed9dd;
   padding: 5px;
 }
 
@@ -422,7 +422,7 @@ body {
   top: 0;
   height: 100vh;
   width: 200px;
-  background-color: #f0d1c3;
+  background-color: #bed9dd;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -436,7 +436,7 @@ body {
   padding: 10px 0;
   font-size: 24px;
   font-weight: bold;
-  color: #ce755f;
+  color: #3c979f;
 }
 
 .sidebar-nav ul {
@@ -456,16 +456,16 @@ body {
   padding: 10px;
   color: #333;
   text-decoration: none;
-  background-color: #f7dfd6;
+  background-color: #deebec;
   border-radius: 5px;
   transition: background-color 0.2s;
 }
 
 .sidebar-nav a:hover,
 .sidebar-nav li.active a {
-  background-color: #ecae9b;
+  background-color: #aecfd0;
   border-radius: 5px;
-  color: #2f1c17;
+  color: #333;
 }
 
 .sidebar-footer {
@@ -479,22 +479,22 @@ body {
   align-items: center;
   gap: 10px;
   padding: 10px;
-  color: #ce755f;
+  color: #3c979f;
   text-decoration: none;
   transition: background-color 0.2s;
   cursor: pointer;
 }
 
 .sign-out:hover {
-  background-color: #ffe6e6;
+  background-color: #73b3b2;
   border-radius: 5px;
-  color: #2f1c17;
+  color: #333;
 }
 
 .content-wrapper {
   margin-left: 200px;
   padding: 20px;
-  background-color: #b7d1d5;
+  background-color: #bed9dd;
   color: #333;
   transition: margin-left 0.3s ease;
 }
@@ -504,8 +504,8 @@ body {
   display: none;
   padding: 20px;
   animation: fadeIn 0.3s ease;
-  background-color: #f7dfd6;
-  border: 1px solid #ecae9b;
+  background-color: #deebec;
+  border: 1px solid #73b3b2;
   border-radius: 5px;
 }
 
@@ -592,7 +592,7 @@ body {
   transform-origin: left center;
   z-index: 1100;
   padding: 10px 15px;
-  background-color: #2c3e50;
+  background-color: #3c979f;
   color: white;
   border: none;
   border-radius: 0 0 5px 5px;
@@ -603,12 +603,12 @@ body {
 }
 
 #sidebar-toggle-btn:hover {
-  background-color: #34495e;
+  background-color: #73b3b2;
   transform: translateY(-50%) rotate(90deg) scale(1.05);
 }
 
 #sidebar-toggle-btn:active {
-  background-color: #1c2833;
+  background-color: #aecfd0;
   transform: translateY(-50%) rotate(90deg) scale(0.95);
 }
 
