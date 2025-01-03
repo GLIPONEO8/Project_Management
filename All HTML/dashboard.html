@@ -15,10 +15,19 @@
     />
   </head>
   <body>
-    <!-- Hamburger Button -->
-    <button class="hamburger-btn">
-      <i class="fas fa-bars"></i>
-    </button>
+
+    <!-- Notification Bell Icon -->
+<div id="notificationBell">
+  <i class="fas fa-bell"></i>
+  <span id="notificationCount" class="notification-badge">0</span>
+</div>
+
+<!-- Notification Panel -->
+<div id="notificationPanel">
+  <h3>Notifications <button id="markAsRead">Mark as Read</button></h3>
+  <div id="notifications"></div>
+</div>
+   
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -55,6 +64,11 @@
         </a>
       </div>
     </div>
+
+     <!-- Hamburger Button -->
+     <button class="hamburger-btn">
+      <i class="fas fa-bars"></i>
+    </button>
 
     <!-- Content wrapper -->
     <div class="content-wrapper">
@@ -112,107 +126,126 @@
           <div class="items-grid"></div>
         </div>
       </div>
+      
 
-      <!-- Stats Dashboard -->
-      <div class="stats-dashboard">
-        <div class="stat-card">
-          <h3>Total Items</h3>
-          <p id="totalItems">0</p>
-        </div>
-        <div class="stat-card">
-          <h3>Expiring Soon</h3>
-          <p id="expiringSoon">0</p>
-        </div>
-        <div class="stat-card">
-          <h3>Low Stock</h3>
-          <p id="lowStock">0</p>
-        </div>
+    <!-- Replace the existing stats-dashboard div with this -->
+<div class="stats-dashboard">
+  <div class="stat-card" id="totalItemsCard">
+    <h3>Total Items</h3>
+    <p id="totalItems">0</p>
+  </div>
+  <div class="stat-card" id="expiringSoonCard">
+    <h3>Expiring Soon</h3>
+    <p id="expiringSoon">0</p>
+  </div>
+  <div class="stat-card" id="lowStockCard">
+    <h3>Low Stock</h3>
+    <p id="lowStock">0</p>
+  </div>
+</div>
+
+<!-- Add this modal outside the stats-dashboard div -->
+<div id="statsModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2 id="statsModalTitle"></h2>
+    <table id="statsModalTable">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Expiry Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be populated dynamically -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+     <!-- Add Item Form -->
+<div class="add-item-section">
+  <h2>Add New Item</h2>
+  <form id="addItemForm">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="itemCategory">Category</label>
+        <select id="itemCategory" required>
+          <option value="">Select Category</option>
+          <option value="freezer">Freezer</option>
+          <option value="chiller">Chiller</option>
+          <option value="mid">Mid Section</option>
+        </select>
       </div>
 
-      <!-- Add Item Form -->
-      <div class="add-item-section">
-        <h2>Add New Item</h2>
-        <form id="addItemForm">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="itemCategory">Category</label>
-              <select id="itemCategory" required>
-                <option value="">Select Category</option>
-                <option value="freezer">Freezer</option>
-                <option value="chiller">Chiller</option>
-                <option value="mid">Mid Section</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="itemName">Item Name</label>
-              <input type="text" id="itemName" required />
-            </div>
+      <!-- Item Name Input -->
+<div class="form-group">
+  <label for="itemName">Item Name</label>
+  <input type="text" id="itemName" required placeholder="Enter item name" />
+</div>
 
-            <!-- Modify the Add Item Form section -->
-            <div class="form-group">
-              <label for="itemQuantity">Quantity</label>
-              <div class="quantity-input">
-                <input type="number" id="itemQuantity" required step="0.01" />
-                <select id="itemUnit" required>
-                  <option value="">Select Unit</option>
-                  <option value="kg">kg</option>
-                  <option value="g">g</option>
-                  <option value="mg">mg</option>
-                  <option value="lb">lb</option>
-                  <option value="oz">oz</option>
-                  <option value="pieces">pieces</option>
-                  <option value="ml">ml</option>
-                  <option value="l">l</option>
-                </select>
-              </div>
-            </div>
+      <!-- Quantity Input -->
+<div class="form-group">
+  <label for="itemQuantity">Quantity</label>
+  <div class="quantity-input">
+    <input type="number" id="itemQuantity" required step="0.01" />
+    <select id="itemUnit" required>
+      <option value="">Select Unit</option>
+      <option value="kg">kg</option>
+      <option value="g">g</option>
+      <option value="mg">mg</option>
+      <option value="ml">ml</option>
+      <option value="l">l</option>
+    </select>
+  </div>
+</div>
 
-            <!-- Modify the Add Item Form section -->
-            <div class="form-group">
-              <label for="itemQuantity">Quantity</label>
-              <div class="quantity-input">
-                <input type="number" id="itemQuantity" required step="0.01" />
-                <select id="itemUnit" required>
-                  <option value="">Select Unit</option>
-                  <option value="kg">kg</option>
-                  <option value="g">g</option>
-                  <option value="mg">mg</option>
-                  <option value="lb">lb</option>
-                  <option value="oz">oz</option>
-                  <option value="pieces">pieces</option>
-                  <option value="ml">ml</option>
-                  <option value="l">l</option>
-                </select>
-              </div>
-            </div>
+<!-- Minimum Quantity Input -->
+<div class="form-group">
+  <label for="minQuantity">Minimum Quantity</label>
+  <div class="quantity-input">
+    <input type="number" id="minQuantity" required step="0.01" />
+    <select id="minQuantityUnit" required>
+      <option value="">Select Unit</option>
+      <option value="kg">kg</option>
+      <option value="g">g</option>
+      <option value="mg">mg</option>
+      <option value="ml">ml</option>
+      <option value="l">l</option>
+    </select>
+  </div>
+</div>
 
-            <!-- Predefined Expiration Dates -->
-            <div class="form-group">
-              <label for="expiryPreset">Expiration Preset</label>
-              <select id="expiryPreset">
-                <option value="">Select Preset</option>
-                <option value="dairy">Dairy (7 days)</option>
-                <option value="meat">Raw Meat (2-3 days)</option>
-                <option value="vegetables">Fresh Vegetables (5-7 days)</option>
-                <option value="fruits">Fresh Fruits (5-7 days)</option>
-                <option value="bakery">Bakery Items (3-5 days)</option>
-                <option value="frozen">Frozen Items (3-6 months)</option>
-              </select>
-            </div>
+      <!-- Predefined Expiration Dates -->
+      <label for="expiryPreset">Expiration Preset:</label>
+<select id="expiryPreset" onchange="toggleCustomExpiry()">
+  <option value="dairy">Dairy (7 days)</option>
+  <option value="meat">Meat (3 days)</option>
+  <option value="vegetables">Vegetables (7 days)</option>
+  <option value="fruits">Fruits (7 days)</option>
+  <option value="bakery">Bakery (5 days)</option>
+  <option value="frozen">Frozen (6 months)</option>
+  <option value="custom">Custom</option>
+</select>
+<input type="date" id="customExpiryDate" style="display: none;">
 
-            <div class="form-group">
-              <label for="itemNotes">Notes</label>
-              <textarea id="itemNotes"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="itemImage">Image</label>
-              <input type="file" id="itemImage" accept="image/*" />
-              <div id="imagePreview" class="image-preview"></div>
-            </div>
-          </div>
-          <button type="submit">Add Item</button>
-        </form>
+      <div class="form-group">
+        <label for="itemNotes">Notes</label>
+        <textarea id="itemNotes"></textarea>
       </div>
+      <div class="form-group">
+        <label for="itemImage">Image</label>
+        <input type="file" id="itemImage" accept="image/*" />
+        <div id="imagePreview" class="image-preview"></div>
+      </div>
+    </div>
+    <button type="submit">Add Item</button>
+  </form>
+</div>
 
       <!-- Item Details Modal -->
       <div id="itemModal" class="modal">
