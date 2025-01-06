@@ -247,6 +247,11 @@ function displayItems(category, items) {
     const itemCard = document.createElement("div");
     itemCard.className = "item-card";
 
+    // Check if the item is low stock
+    const quantityInBaseUnit = convertToBaseUnit(item.quantity);
+    const minQuantityInBaseUnit = convertToBaseUnit(item.minQuantity);
+    const isLowStock = quantityInBaseUnit <= minQuantityInBaseUnit;
+
     // Calculate expiry status
     const expiryStatus = getExpiryStatus(item.expiryDate);
 
@@ -262,6 +267,11 @@ function displayItems(category, items) {
           : ""
       }
       ${item.isNew ? `<span class="new-badge">New</span>` : ""}
+      ${
+        isLowStock
+          ? `<span class="low-stock-badge">Low Stock</span>`
+          : ""
+      }
       <div class="item-info">
         <h3>${item.name}</h3>
         <p>Quantity: ${item.quantity}</p>
@@ -296,9 +306,8 @@ function showItemDetails(itemId, category) {
   const quantityInBaseUnit = convertToBaseUnit(item.quantity);
   const minQuantityInBaseUnit = convertToBaseUnit(item.minQuantity);
   const baseUnit = item.quantity.includes("l") ? "ml" : "g";
-  const [quantity, unit] = item.quantity.split(" ");
 
-  const expiryStatus = getExpiryStatus(item.expiryDate);
+  // Check if the item is low stock
   const isLowStock = quantityInBaseUnit <= minQuantityInBaseUnit;
 
   modalContent.innerHTML = `
@@ -308,7 +317,11 @@ function showItemDetails(itemId, category) {
     </div>
     <div class="modal-body">
       <div class="item-image-container">
-        ${item.image ? `<img src="${item.image}" alt="${item.name}" class="item-image">` : '<div class="item-image-placeholder">No Image</div>'}
+        ${
+          item.image
+            ? `<img src="${item.image}" alt="${item.name}" class="item-image">`
+            : '<div class="item-image-placeholder">No Image</div>'
+        }
       </div>
       <div class="item-details-tabs">
         <button class="tab-btn active" onclick="switchTab('details')">Details</button>
@@ -317,27 +330,34 @@ function showItemDetails(itemId, category) {
       <div id="detailsTab" class="tab-content active">
         <div class="item-details">
           <p><strong>Category:</strong> ${category}</p>
-          <p><strong>Quantity:</strong> ${quantity} ${unit} (${quantityInBaseUnit} ${baseUnit})</p>
+          <p><strong>Quantity:</strong> ${item.quantity} (${quantityInBaseUnit} ${baseUnit})</p>
           <p><strong>Minimum Quantity:</strong> ${item.minQuantity} (${minQuantityInBaseUnit} ${baseUnit})</p>
           <p><strong>Expiry Preset:</strong> ${item.expiryPreset}</p>
           <p><strong>Expiry Date:</strong> ${new Date(item.expiryDate).toLocaleDateString()}</p>
           <p><strong>Date Added:</strong> ${new Date(item.dateAdded).toLocaleDateString()}</p>
           ${item.notes ? `<p><strong>Notes:</strong> ${item.notes}</p>` : ""}
         </div>
-        ${expiryStatus !== "normal" ? `<span class="expiry-badge ${expiryStatus}">${expiryStatus}</span>` : ""}
-        ${isLowStock ? `<span class="low-stock-badge">Low Stock</span>` : ""}
+        ${
+          isLowStock
+            ? `<div class="low-stock-indicator">
+                <span class="low-stock-icon">⚠️</span>
+                <span class="low-stock-text">This item is low in stock!</span>
+                <a href="shops.html?item=${encodeURIComponent(item.name)}" class="buy-now-btn">Buy Now</a>
+              </div>`
+            : ""
+        }
       </div>
       <div id="editTab" class="tab-content">
         <form id="editItemForm">
           <label for="editQuantity">Quantity:</label>
           <div class="quantity-input-group">
-            <input type="number" id="editQuantity" value="${quantity}" step="0.1">
-            <span class="unit-display">${unit}</span>
+            <input type="number" id="editQuantity" value="${quantityInBaseUnit}" step="0.1">
+            <span class="unit-display">${baseUnit}</span>
           </div>
           <label for="editMinQuantity">Minimum Quantity:</label>
           <div class="quantity-input-group">
-            <input type="number" id="editMinQuantity" value="${item.minQuantity}" step="0.1">
-            <span class="unit-display">${unit}</span>
+            <input type="number" id="editMinQuantity" value="${minQuantityInBaseUnit}" step="0.1">
+            <span class="unit-display">${baseUnit}</span>
           </div>
           <label for="editNotes">Notes:</label>
           <textarea id="editNotes">${item.notes || ""}</textarea>
@@ -347,6 +367,7 @@ function showItemDetails(itemId, category) {
     </div>
   `;
 
+  // Handle form submission for editing
   const editItemForm = document.getElementById("editItemForm");
   editItemForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -354,8 +375,8 @@ function showItemDetails(itemId, category) {
     const newMinQuantity = document.getElementById("editMinQuantity").value;
     const newNotes = document.getElementById("editNotes").value;
 
-    item.quantity = `${newQuantity} ${unit}`;
-    item.minQuantity = `${newMinQuantity} ${unit}`;
+    item.quantity = `${newQuantity} ${baseUnit}`;
+    item.minQuantity = `${newMinQuantity} ${baseUnit}`;
     item.notes = newNotes;
 
     saveInventory();
@@ -762,7 +783,17 @@ const liquidItems = [   "water", "milk",
   "miso broth",
   "chia seed drink",
   "flavored water",
-  "electrolyte water"];
+  "electrolyte water",
+  "mustard",
+  "yakult",
+  "vitamilk",
+  "delight",
+  "gatorade",
+  "prime",
+  "chucky",
+  "dutch mill",
+  "mr.milk"
+];
 
 function handleItemNameChange() {
   const itemName = document.getElementById("itemName").value.toLowerCase();
