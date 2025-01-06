@@ -42,7 +42,6 @@ navButtons.forEach((button) => {
   });
 });
 
-// Helper function to filter items by low stock
 function filterLowStock(items) {
   return items.filter((item) => {
     const quantityInBaseUnit = convertToBaseUnit(item.quantity); // Convert quantity to base unit
@@ -73,11 +72,15 @@ function handleImagePreview(e) {
   if (file) {
     const reader = new FileReader();
     reader.onload = function (e) {
-      imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+      imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview" class="preview-image">`;
+    };
+    reader.onerror = function (e) {
+      console.error("Error reading file:", e);
+      imagePreview.innerHTML = "<p>Error loading image.</p>";
     };
     reader.readAsDataURL(file);
   } else {
-    imagePreview.innerHTML = "";
+    imagePreview.innerHTML = '<div class="image-placeholder">No Image Selected</div>';
   }
 }
 
@@ -85,40 +88,28 @@ addItemForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const category = document.getElementById("itemCategory").value;
-  const name = document.getElementById("itemName").value;
+  const name = document.getElementById("itemName").value.trim();
   const quantity = document.getElementById("itemQuantity").value;
   const unit = document.getElementById("itemUnit").value;
-  const minQuantity = document.getElementById("minQuantity").value; // Get minQuantity
+  const minQuantity = document.getElementById("minQuantity").value;
   const expiryPreset = document.getElementById("expiryPreset").value;
-  const notes = document.getElementById("itemNotes").value;
+  const notes = document.getElementById("itemNotes").value.trim();
   const imageFile = document.getElementById("itemImage").files[0];
+
+  if (!name || !quantity || !unit || !minQuantity) {
+    alert("Please fill in all required fields.");
+    return;
+  }
 
   if (imageFile) {
     const reader = new FileReader();
     reader.onload = function (e) {
       const imageData = e.target.result;
-      addItemToInventory(
-        category,
-        name,
-        quantity,
-        unit,
-        minQuantity, // Pass minQuantity
-        expiryPreset,
-        notes,
-        imageData
-      );
+      addItemToInventory(category, name, quantity, unit, minQuantity, expiryPreset, notes, imageData);
     };
     reader.readAsDataURL(imageFile);
   } else {
-    addItemToInventory(
-      category,
-      name,
-      quantity,
-      unit,
-      minQuantity, // Pass minQuantity
-      expiryPreset,
-      notes
-    );
+    addItemToInventory(category, name, quantity, unit, minQuantity, expiryPreset, notes);
   }
 
   addItemForm.reset();
@@ -230,7 +221,6 @@ function updateDisplay() {
   updateStats();
 }
 
-// Function to sort items
 function sortItems(items, sortBy) {
   return items.sort((a, b) => {
     switch (sortBy) {
@@ -241,7 +231,7 @@ function sortItems(items, sortBy) {
       case "dateAdded":
         return new Date(b.dateAdded) - new Date(a.dateAdded);
       case "quantity":
-        return b.quantity - a.quantity;
+        return convertToBaseUnit(b.quantity) - convertToBaseUnit(a.quantity);
       default:
         return 0;
     }
@@ -303,14 +293,11 @@ function showItemDetails(itemId, category) {
   if (!item) return;
 
   const modalContent = document.getElementById("modalContent");
-  const quantityInBaseUnit = convertToBaseUnit(item.quantity); // Convert quantity to base unit
-  const minQuantityInBaseUnit = convertToBaseUnit(item.minQuantity); // Convert minQuantity to base unit
-  const baseUnit = item.quantity.includes("l") ? "ml" : "g"; // Determine base unit (ml or g)
-
-  // Extract original quantity and unit for editing
+  const quantityInBaseUnit = convertToBaseUnit(item.quantity);
+  const minQuantityInBaseUnit = convertToBaseUnit(item.minQuantity);
+  const baseUnit = item.quantity.includes("l") ? "ml" : "g";
   const [quantity, unit] = item.quantity.split(" ");
 
-  // Calculate expiry status and low stock status
   const expiryStatus = getExpiryStatus(item.expiryDate);
   const isLowStock = quantityInBaseUnit <= minQuantityInBaseUnit;
 
@@ -321,11 +308,7 @@ function showItemDetails(itemId, category) {
     </div>
     <div class="modal-body">
       <div class="item-image-container">
-        ${
-          item.image
-            ? `<img src="${item.image}" alt="${item.name}" class="item-image">`
-            : '<div class="item-image-placeholder">No Image</div>'
-        }
+        ${item.image ? `<img src="${item.image}" alt="${item.name}" class="item-image">` : '<div class="item-image-placeholder">No Image</div>'}
       </div>
       <div class="item-details-tabs">
         <button class="tab-btn active" onclick="switchTab('details')">Details</button>
@@ -334,27 +317,15 @@ function showItemDetails(itemId, category) {
       <div id="detailsTab" class="tab-content active">
         <div class="item-details">
           <p><strong>Category:</strong> ${category}</p>
-          <p><strong>Quantity:</strong> ${quantityInBaseUnit} ${baseUnit}</p>
-          <p><strong>Minimum Quantity:</strong> ${minQuantityInBaseUnit} ${baseUnit}</p>
+          <p><strong>Quantity:</strong> ${quantity} ${unit} (${quantityInBaseUnit} ${baseUnit})</p>
+          <p><strong>Minimum Quantity:</strong> ${item.minQuantity} (${minQuantityInBaseUnit} ${baseUnit})</p>
           <p><strong>Expiry Preset:</strong> ${item.expiryPreset}</p>
-          <p><strong>Expiry Date:</strong> ${new Date(
-            item.expiryDate
-          ).toLocaleDateString()}</p>
-          <p><strong>Date Added:</strong> ${new Date(
-            item.dateAdded
-          ).toLocaleDateString()}</p>
+          <p><strong>Expiry Date:</strong> ${new Date(item.expiryDate).toLocaleDateString()}</p>
+          <p><strong>Date Added:</strong> ${new Date(item.dateAdded).toLocaleDateString()}</p>
           ${item.notes ? `<p><strong>Notes:</strong> ${item.notes}</p>` : ""}
         </div>
-        ${
-          expiryStatus !== "normal"
-            ? `<span class="expiry-badge ${expiryStatus}">${expiryStatus}</span>`
-            : ""
-        }
-        ${
-          isLowStock
-            ? `<span class="low-stock-badge">Low Stock</span>`
-            : ""
-        }
+        ${expiryStatus !== "normal" ? `<span class="expiry-badge ${expiryStatus}">${expiryStatus}</span>` : ""}
+        ${isLowStock ? `<span class="low-stock-badge">Low Stock</span>` : ""}
       </div>
       <div id="editTab" class="tab-content">
         <form id="editItemForm">
@@ -376,7 +347,6 @@ function showItemDetails(itemId, category) {
     </div>
   `;
 
-  // Handle form submission for editing
   const editItemForm = document.getElementById("editItemForm");
   editItemForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -384,9 +354,8 @@ function showItemDetails(itemId, category) {
     const newMinQuantity = document.getElementById("editMinQuantity").value;
     const newNotes = document.getElementById("editNotes").value;
 
-    // Update item with new values
-    item.quantity = `${newQuantity} ${unit}`; // Update quantity with unit
-    item.minQuantity = `${newMinQuantity} ${unit}`; // Update minimum quantity with unit
+    item.quantity = `${newQuantity} ${unit}`;
+    item.minQuantity = `${newMinQuantity} ${unit}`;
     item.notes = newNotes;
 
     saveInventory();
@@ -414,15 +383,16 @@ function switchTab(tabName) {
   document.querySelector(`.tab-btn[onclick="switchTab('${tabName}')"]`).classList.add("active");
 }
 
-// Function to delete an item
 function deleteItem(category, itemId) {
-  if (confirm("Are you sure you want to delete this item?")) {
-    inventory[category] = inventory[category].filter(
-      (item) => item.id !== itemId
-    );
-    saveInventory();
-    updateDisplay();
+  const item = inventory[category].find((item) => item.id === itemId);
+  if (item && new Date(item.expiryDate) < new Date()) {
+    if (!confirm("This item is expired. Are you sure you want to delete it?")) {
+      return;
+    }
   }
+  inventory[category] = inventory[category].filter((item) => item.id !== itemId);
+  saveInventory();
+  updateDisplay();
 }
 
 // Function to update stats
@@ -456,11 +426,15 @@ function updateStats() {
   document.getElementById("lowStock").textContent = lowStock;
 }
 
-// Function to save inventory to localStorage
 function saveInventory() {
-  localStorage.setItem("refrigeratorInventory", JSON.stringify(inventory));
+  // Throttle localStorage writes
+  if (!saveInventory.timeout) {
+    saveInventory.timeout = setTimeout(() => {
+      localStorage.setItem("refrigeratorInventory", JSON.stringify(inventory));
+      saveInventory.timeout = null;
+    }, 1000);
+  }
 }
-
 // List of suggestions
 const itemSuggestions = [
   "Apples",
@@ -515,22 +489,24 @@ document.addEventListener("DOMContentLoaded", function () {
   updateStats();
 
   // Add event listeners for stats cards
-  document.getElementById("totalItemsCard").addEventListener("click", function () {
-    const allItems = [...inventory.freezer, ...inventory.chiller, ...inventory.mid];
-    openStatsModal("Total Items", allItems);
-  });
+document.getElementById("totalItemsCard").addEventListener("click", function () {
+  const allItems = [...inventory.freezer, ...inventory.chiller, ...inventory.mid];
+  openStatsModal("Total Items", allItems);
+});
 
-  document.getElementById("expiringSoonCard").addEventListener("click", function () {
-    const allItems = [...inventory.freezer, ...inventory.chiller, ...inventory.mid];
-    const expiringSoonItems = filterNearlyExpired(allItems);
-    openStatsModal("Expiring Soon", expiringSoonItems);
-  });
+document.getElementById("expiringSoonCard").addEventListener("click", function () {
+  const allItems = [...inventory.freezer, ...inventory.chiller, ...inventory.mid];
+  const expiringSoonItems = filterNearlyExpired(allItems);
+  openStatsModal("Expiring Soon", expiringSoonItems);
+});
 
-  document.getElementById("lowStockCard").addEventListener("click", function () {
-    const allItems = [...inventory.freezer, ...inventory.chiller, ...inventory.mid];
-    const lowStockItems = filterLowStock(allItems);
-    openStatsModal("Low Stock", lowStockItems);
-  });
+document.getElementById("lowStockCard").addEventListener("click", function () {
+  console.log("Low Stock Card Clicked!"); // Debugging log
+  const allItems = [...inventory.freezer, ...inventory.chiller, ...inventory.mid];
+  const lowStockItems = filterLowStock(allItems);
+  console.log("Low Stock Items:", lowStockItems); // Debugging log
+  openStatsModal("Low Stock", lowStockItems);
+});
 
   // Close the modal
   document.querySelector("#statsModal .close-modal").addEventListener("click", function () {
@@ -546,33 +522,44 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-// Function to open the modal and populate the table
-function openStatsModal(title, items) {
-  const modal = document.getElementById("statsModal");
-  const modalTitle = document.getElementById("statsModalTitle");
-  const tableBody = document.querySelector("#statsModalTable tbody");
-
-  // Set the modal title
-  modalTitle.textContent = title;
-
-  // Clear existing rows
-  tableBody.innerHTML = "";
-
-  // Populate the table with items
-  items.forEach((item) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${item.category}</td>
-      <td>${item.name}</td>
-      <td>${item.quantity}</td>
-      <td>${new Date(item.expiryDate).toLocaleDateString()}</td>
-    `;
-    tableBody.appendChild(row);
-  });
-
-  // Open the modal
-  modal.style.display = "flex";
-}
+  function openStatsModal(title, items) {
+    const modal = document.getElementById("statsModal");
+    const modalTitle = document.getElementById("statsModalTitle");
+    const tableBody = document.querySelector("#statsModalTable tbody");
+  
+    // Set the modal title
+    modalTitle.textContent = title;
+  
+    // Clear existing rows
+    tableBody.innerHTML = "";
+  
+    // Populate the table with items
+    items.forEach((item) => {
+      // Determine the category of the item
+      let category;
+      if (inventory.freezer.includes(item)) {
+        category = "Freezer";
+      } else if (inventory.chiller.includes(item)) {
+        category = "Chiller";
+      } else if (inventory.mid.includes(item)) {
+        category = "Mid Section";
+      } else {
+        category = "Unknown";
+      }
+  
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${category}</td>
+        <td>${item.name}</td>
+        <td>${item.quantity}</td>
+        <td>${new Date(item.expiryDate).toLocaleDateString()}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  
+    // Open the modal
+    modal.style.display = "flex";
+  }
 
 // Add search functionality
 document.getElementById("searchInput").addEventListener("input", searchFAQs);
@@ -675,7 +662,7 @@ toggleButton.addEventListener("click", function () {
 });
 });
 
-const liquidItems = [    "milk",
+const liquidItems = [   "water", "milk",
   "orange juice",
   "apple juice",
   "cranberry juice",
@@ -838,8 +825,9 @@ function updateNotifications() {
           message: `Item "${item.name}" is expiring soon!`,
           category,
           itemId: item.id,
-          image: item.image, // Include item image
-          read: false, // Mark as unread
+          image: item.image,
+          read: false,
+          timestamp: new Date().toLocaleString(),
         });
       }
       if (parseFloat(quantity) <= parseFloat(minQuantity)) {
@@ -847,19 +835,18 @@ function updateNotifications() {
           message: `Item "${item.name}" is low in stock!`,
           category,
           itemId: item.id,
-          image: item.image, // Include item image
-          read: false, // Mark as unread
+          image: item.image,
+          read: false,
+          timestamp: new Date().toLocaleString(),
         });
       }
     });
   });
 
-  // Update notification count
   const notificationCount = document.getElementById("notificationCount");
   notificationCount.textContent = notifications.length;
   notificationCount.style.display = notifications.length > 0 ? "block" : "none";
 
-  // Update notification list
   const notificationsDiv = document.getElementById("notifications");
   notificationsDiv.innerHTML = notifications
     .map(
@@ -867,10 +854,19 @@ function updateNotifications() {
         <div class="notification ${notification.read ? "read" : ""}" data-category="${notification.category}" data-item-id="${notification.itemId}">
           <img src="${notification.image || "placeholder-image.jpg"}" alt="${notification.message}" />
           <div class="text">${notification.message}</div>
+          <div class="timestamp">${notification.timestamp}</div>
+          <button class="clear-notification" onclick="clearNotification(event, ${notification.itemId}, '${notification.category}')">×</button>
         </div>
       `
     )
     .join("");
+}
+
+function clearNotification(event, itemId, category) {
+  event.stopPropagation();
+  const notification = event.target.closest(".notification");
+  notification.remove();
+  updateNotifications();
 }
 
 // Toggle notification panel
@@ -949,3 +945,117 @@ function convertToBaseUnit(quantity) {
   throw new Error(`Invalid unit: ${unit}`);
 }
 
+// Standalone function to display low-stock items table
+function displayLowStockItemsTable() {
+  // Get the container for the table
+  const lowStockTableContainer = document.getElementById("lowStockTableContainer");
+  if (!lowStockTableContainer) {
+    console.error("Error: #lowStockTableContainer not found in the HTML.");
+    return;
+  }
+
+  // Get the inventory from localStorage
+  const inventory = JSON.parse(localStorage.getItem("refrigeratorInventory")) || {
+    freezer: [],
+    chiller: [],
+    mid: [],
+  };
+
+  // Get all items from the inventory
+  const allItems = [...inventory.freezer, ...inventory.chiller, ...inventory.mid];
+
+  // Filter low-stock items
+  const lowStockItems = allItems.filter((item) => {
+    const quantityInBaseUnit = convertToBaseUnit(item.quantity);
+    const minQuantityInBaseUnit = convertToBaseUnit(item.minQuantity);
+    return quantityInBaseUnit <= minQuantityInBaseUnit;
+  });
+
+  // If no low-stock items, display a message
+  if (lowStockItems.length === 0) {
+    lowStockTableContainer.innerHTML = "<p>No low-stock items found.</p>";
+    return;
+  }
+
+  // Clear existing content
+  lowStockTableContainer.innerHTML = "";
+
+  // Create a table element
+  const table = document.createElement("table");
+  table.className = "low-stock-table";
+
+  // Create table headers
+  const headerRow = document.createElement("tr");
+  const headers = ["Category", "Name", "Quantity", "Minimum Quantity", "Expiry Date"];
+  headers.forEach((headerText) => {
+    const th = document.createElement("th");
+    th.textContent = headerText;
+    headerRow.appendChild(th);
+  });
+  table.appendChild(headerRow);
+
+  // Populate the table with low-stock items
+  lowStockItems.forEach((item) => {
+    const row = document.createElement("tr");
+
+    // Determine the category of the item
+    let category;
+    if (inventory.freezer.includes(item)) {
+      category = "Freezer";
+    } else if (inventory.chiller.includes(item)) {
+      category = "Chiller";
+    } else if (inventory.mid.includes(item)) {
+      category = "Mid Section";
+    } else {
+      category = "Unknown";
+    }
+
+    // Add item details to the row
+    const cells = [
+      category,
+      item.name,
+      item.quantity,
+      item.minQuantity,
+      new Date(item.expiryDate).toLocaleDateString(),
+    ];
+
+    cells.forEach((cellText) => {
+      const td = document.createElement("td");
+      td.textContent = cellText;
+      row.appendChild(td);
+    });
+
+    table.appendChild(row);
+  });
+
+  // Append the table to the container
+  lowStockTableContainer.appendChild(table);
+}
+
+// Call the function when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+  displayLowStockItemsTable();
+});
+
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+searchInput.addEventListener("input", debounce(updateDisplay, 300));
+
+// Add keyboard accessibility to navigation buttons
+navButtons.forEach((button) => {
+  button.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      button.click();
+    }
+  });
+});
+
+// Add ARIA labels to modal close buttons
+closeModal.setAttribute("aria-label", "Close modal");
+document.querySelector(".close-modal-btn").setAttribute("aria-label", "Close modal");
